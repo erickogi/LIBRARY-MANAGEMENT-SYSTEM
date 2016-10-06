@@ -85,8 +85,13 @@ public class loanedcourse extends javax.swing.JFrame {
     {
       Logger.getLogger(returnn.class.getName()).log(Level.SEVERE, null, ex);
     }
-    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+//    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
+//        this.setTitle(tt);
+     methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
       this.sid.addActionListener(new ActionListener()
     {
       public void actionPerformed(ActionEvent b)
@@ -136,7 +141,8 @@ public class loanedcourse extends javax.swing.JFrame {
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -148,26 +154,27 @@ public class loanedcourse extends javax.swing.JFrame {
     con.close();
   }
   
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<returndb> ListUsers(String ValToSearch)
   {
     ArrayList<returndb> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `loanedcourse` WHERE CONCAT(`sid`,`bid`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -378,7 +385,8 @@ public class loanedcourse extends javax.swing.JFrame {
     }
     else
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       Statement st3 = con.createStatement();
@@ -414,7 +422,8 @@ public class loanedcourse extends javax.swing.JFrame {
     }
     else
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       
@@ -445,7 +454,8 @@ public class loanedcourse extends javax.swing.JFrame {
   {
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");

@@ -56,7 +56,8 @@ this.newusername.addActionListener(new ActionListener()
         }
        try
     {
-      Connection connection = getConnection();
+      methods m=new methods();
+        Connection connection = m.getConnection();
       String sql = "UPDATE lib_user SET user_password ='" + this.newpassword.getText() + "'WHERE id='2' ";
       String sql1 = "UPDATE lib_user SET user_name='" + this.newusername.getText() + "'WHERE id='2'  ";
       PreparedStatement pst = connection.prepareStatement(sql);
@@ -75,18 +76,18 @@ this.newusername.addActionListener(new ActionListener()
         JOptionPane.showMessageDialog(null, "successful.");
         System.exit(1);
     }
- public Connection getConnection()
-  {
-    try
-    {
-      return DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    return null;
-  }
+// public Connection getConnection()
+//  {
+//    try
+//    {
+//      return DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception e)
+//    {
+//      e.printStackTrace();
+//    }
+//    return null;
+//  }
   
     /**
      * This method is called from within the constructor to initialize the form.

@@ -42,13 +42,17 @@ String tt;
     {
       Logger.getLogger(printbooklist.class.getName()).log(Level.SEVERE, null, ex);
     }
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+   methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     }
 public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+     methods m=new methods();
+                Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -59,19 +63,19 @@ public void selectname()
     res7.close();
     con.close();
   }
- public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+// public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,17 +180,9 @@ public void selectname()
     }//GEN-LAST:event_jButton2ActionPerformed
 public  void printtitle() throws SQLException {
     String nt=btitle.getText();
-		Connection connection = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root", "123ERYcog.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return;
-		}
+		//Connection connection = null;
+                methods m=new methods();
+                Connection connection = m.getConnection();
 
 		JasperReportBuilder report = DynamicReports.report();//a new report
 		report
@@ -218,17 +214,11 @@ public  void printtitle() throws SQLException {
 	connection.close();
 }
     public  void printall() throws SQLException {
-		Connection connection = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root", "123ERYcog.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return;
-		}
+		//Connection connection = null;
+		
+			 methods m=new methods();
+                Connection connection = m.getConnection();
+		
 
 		JasperReportBuilder report = DynamicReports.report();//a new report
 		report

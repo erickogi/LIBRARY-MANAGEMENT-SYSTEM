@@ -90,8 +90,11 @@ public class students extends javax.swing.JFrame {
     {
       Logger.getLogger(students.class.getName()).log(Level.SEVERE, null, ex);
     }
-     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+   methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     this.sid.addActionListener(new ActionListener()
     {
       public void actionPerformed(ActionEvent b)
@@ -135,7 +138,8 @@ sfname.requestFocus();
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -147,26 +151,27 @@ sfname.requestFocus();
     con.close();
   }
   
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<addstudent> ListUsers(String ValToSearch)
   {
     ArrayList<addstudent> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `students` WHERE CONCAT(`id`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -210,7 +215,8 @@ sfname.requestFocus();
   
   public void executeSQlQuery(String query, String message)
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       try
@@ -247,7 +253,8 @@ sfname.requestFocus();
   
   public void executeSQlQuery1(String query, String message)
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       try
@@ -514,6 +521,7 @@ sfname.requestFocus();
     this.slname.setText(model.getValueAt(i, 2).toString());
     
     this.sform.setText(model.getValueAt(i, 3).toString());
+    this.sclass.setText(model.getValueAt(i, 4).toString());
     try
     {
       showimg();
@@ -560,7 +568,8 @@ public  void insert(){
       {
         int stru = Integer.valueOf(this.sid.getText()).intValue();
         
-        Connection con = getConnection();
+       methods m=new methods();
+        Connection con = m.getConnection();
         String str = "";
         
         str = "select * from students where  id =?";
@@ -664,7 +673,8 @@ public  void insert(){
   {
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
@@ -716,7 +726,8 @@ public  void insert(){
     {
       String stru = this.sid.getText();
       
-      Connection connection = getConnection();
+      methods m=new methods();
+        Connection connection = m.getConnection();
       String str = "";
       
       str = "select * from loaned where  sid =?";
@@ -747,7 +758,8 @@ public  void insert(){
     {
       String stru = this.sid.getText();
       
-      Connection connection = getConnection();
+     methods m=new methods();
+        Connection connection = m.getConnection();
       String str = "";
       
       str = "select * from loanedcourse where  sid =?";

@@ -78,14 +78,18 @@ public class AddUpdatenventory extends javax.swing.JFrame {
     {
       Logger.getLogger(AddUpdatenventory.class.getName()).log(Level.SEVERE, null, ex);
     }
-    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+    methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
+      //  this.setTitle(tt);
   
              bid.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               btitle.requestFocus(); //To change body of generated methods, choose Tools | Templates.
+             btitle.requestFocus(); //To change body of generated methods, choose Tools | Templates.
             }
         });
           btitle.addActionListener(new ActionListener() {
@@ -108,7 +112,9 @@ public class AddUpdatenventory extends javax.swing.JFrame {
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
+  //  Connection con = getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -118,28 +124,30 @@ public class AddUpdatenventory extends javax.swing.JFrame {
     st2.close();
     res7.close();
     con.close();
+   // return tt;
   }
   
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<db> ListUsers(String ValToSearch)
   {
     ArrayList<db> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `books` WHERE CONCAT(`id`, `title`, `ediion`, `status`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -181,7 +189,8 @@ public class AddUpdatenventory extends javax.swing.JFrame {
   
   public void executeSQlQuery(String query, String message)
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();
@@ -452,8 +461,8 @@ public void delete(){
       try
       {
         String stru = this.bid.getText().toString();
-        
-        Connection con = getConnection();
+        methods m=new methods();
+        Connection con = m.getConnection();
         String str = "";
         
         str = "select * from books where  id =?";

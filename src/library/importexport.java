@@ -47,13 +47,17 @@ String tt;
     {
       Logger.getLogger(returnn.class.getName()).log(Level.SEVERE, null, ex);
     }
-    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+     methods n=new methods();
+     String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     }
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -64,19 +68,19 @@ String tt;
     res7.close();
     con.close();
   }
-    public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//    public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,8 +186,9 @@ libfines();
     }//GEN-LAST:event_jButton1ActionPerformed
 public void students(){
             try{
-Class.forName("com.mysql.jdbc.Driver");
-Connection con = DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+
+methods m=new methods();
+Connection con = m.getConnection();
 Statement statement = con.createStatement();
 FileOutputStream fileOut;
 fileOut = new FileOutputStream(""+chooser.getSelectedFile()+"\\students.xls");
@@ -217,8 +222,6 @@ rs.close();statement.close();
 con.close();
 System.out.println("Export Success");
  jTextArea1.append("\n   Export Successfull    ");
-}catch(ClassNotFoundException e){
-System.out.println(e);
 }catch(SQLException ex){
 System.out.println(ex);
 }catch(IOException ioe){
@@ -227,8 +230,8 @@ System.out.println(ioe);
 }
 public void books(){
             try{
-Class.forName("com.mysql.jdbc.Driver");
-Connection con = DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+methods m=new methods();
+        Connection con = m.getConnection();
 Statement statement = con.createStatement();
 FileOutputStream fileOut;
 fileOut = new FileOutputStream(""+chooser.getSelectedFile()+"\\books.xls");
@@ -260,8 +263,6 @@ rs.close();statement.close();
 con.close();
 jTextArea1.append("\n   Export Successfull    ");
 System.out.println("Export Success");
-}catch(ClassNotFoundException e){
-System.out.println(e);
 }catch(SQLException ex){
 System.out.println(ex);
 }catch(IOException ioe){
@@ -270,8 +271,8 @@ System.out.println(ioe);
 }
 public void loaned(){
             try{
-Class.forName("com.mysql.jdbc.Driver");
-Connection con = DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+methods m=new methods();
+        Connection con = m.getConnection();
 Statement statement = con.createStatement();
 FileOutputStream fileOut;
 fileOut = new FileOutputStream(""+chooser.getSelectedFile()+"\\loaned.xls");
@@ -316,8 +317,6 @@ rs.close();statement.close();
 con.close();
 System.out.println("Export Success");
 jTextArea1.append("\n   Export Successfull    ");
-}catch(ClassNotFoundException e){
-System.out.println(e);
 }catch(SQLException ex){
 System.out.println(ex);
 }catch(IOException ioe){
@@ -326,8 +325,8 @@ System.out.println(ioe);
 }
 public void loanedcourse(){
             try{
-Class.forName("com.mysql.jdbc.Driver");
-Connection con = DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+methods m=new methods();
+        Connection con = m.getConnection();
 Statement statement = con.createStatement();
 FileOutputStream fileOut;
 fileOut = new FileOutputStream(""+chooser.getSelectedFile()+"\\loanedcourse.xls");
@@ -372,8 +371,6 @@ rs.close();statement.close();
 con.close();
 System.out.println("Export Success");
  jTextArea1.append("\n   Export Successfull    ");
-}catch(ClassNotFoundException e){
-System.out.println(e);
 }catch(SQLException ex){
 System.out.println(ex);
 }catch(IOException ioe){
@@ -382,8 +379,8 @@ System.out.println(ioe);
 }
 public void libfines(){
             try{
-Class.forName("com.mysql.jdbc.Driver");
-Connection con = DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+methods m=new methods();
+Connection con = m.getConnection();
 Statement statement = con.createStatement();
 FileOutputStream fileOut;
 fileOut = new FileOutputStream(""+chooser.getSelectedFile()+"\\fines.xls");
@@ -417,9 +414,6 @@ rs.close();statement.close();
 con.close();
 jTextArea1.append("\n   Export Successfull    ");
 System.out.println("Export Successfull");
-}catch(ClassNotFoundException e){
-System.out.println(e);
-JOptionPane.showMessageDialog(null, "Export not Successfull");
 }catch(SQLException ex){
     JOptionPane.showMessageDialog(null, "Export not Successfull");
 System.out.println(ex);

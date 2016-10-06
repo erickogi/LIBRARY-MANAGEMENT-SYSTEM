@@ -49,8 +49,11 @@ text();
     {
       Logger.getLogger(clean.class.getName()).log(Level.SEVERE, null, ex);
     }
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+        methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
         
       editableGroup.add(all);
     editableGroup.add(notall);
@@ -124,23 +127,24 @@ f37.setText("");
 f38.setText("");
 f310.setText("");
     }
-public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
  public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+         methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -377,7 +381,8 @@ public void moveallform1(){
       int d = s;
       int d1 = (s+1);
       
-      Connection connection = getConnection();
+     methods m=new methods();
+        Connection connection = m.getConnection();
       
       String sql4 = "UPDATE students SET form = '" + d1 + "'  WHERE form='" + d + "'";
       
@@ -424,7 +429,8 @@ public void movenotallform1(){
    int s=Integer.valueOf(form.getText())  ;
       int d = s;
       int d1 = (s+1);
-     Connection connection = getConnection();
+     methods m=new methods();
+        Connection connection = m.getConnection();
       
       String sql4 = "UPDATE students SET form = '" + d1 + "'  WHERE form='" + d + "' AND id NOT IN('"+f1+"','"+f2+"','"+f3+"','"+f4+"','"+f5+"',"
               + "'"+f6+"','"+f7+"','"+f8+"','"+f9+"',"

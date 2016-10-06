@@ -96,8 +96,11 @@ this.table = new JTable(this.model);
     {
       Logger.getLogger(returnncourse.class.getName()).log(Level.SEVERE, null, ex);
     }
-    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+     methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     try
     {
       Show_Users_In_JTable4();
@@ -145,7 +148,8 @@ this.table = new JTable(this.model);
     this.iconl.setText(" no image");
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
@@ -202,7 +206,8 @@ this.table = new JTable(this.model);
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -217,7 +222,8 @@ this.table = new JTable(this.model);
   public void select()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     Statement st0 = con.createStatement();
     Statement st3 = con.createStatement();
@@ -247,7 +253,8 @@ this.table = new JTable(this.model);
   public void select1()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+    Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     Statement st0 = con.createStatement();
     ResultSet res7 = st2.executeQuery("SELECT title FROM loaned  WHERE bid=" + this.bid.getText() + "");
@@ -264,26 +271,27 @@ this.table = new JTable(this.model);
     con.close();
   }
   
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<returndb> ListUsers(String ValToSearch)
   {
     ArrayList<returndb> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `loanedcourse` WHERE CONCAT(`sid`,`bid`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -326,7 +334,8 @@ this.table = new JTable(this.model);
   
   public void executeSQlQuery(String query, String message)
   {
-    Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();
@@ -356,7 +365,8 @@ this.table = new JTable(this.model);
   }
     public void executeSQlQuery1(String query, String message)
   {
-    Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();
@@ -391,7 +401,8 @@ this.table = new JTable(this.model);
   {
     ArrayList<prefrence> usersList4 = new ArrayList();
     
-    Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
     
     String query4 = "SELECT * FROM `libprefrence` ";
     try
@@ -661,7 +672,8 @@ public void newbook(){
       String stru = this.bid.getText();
       
       
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       String str = "";
       
       str = "select * from books where  id =?";
@@ -754,7 +766,8 @@ public void deltloaned()
   {
     try
     {
-      Connection con = getConnection();
+       methods m=new methods();
+        Connection con = m.getConnection();
       
       con.close();
     }
@@ -769,6 +782,7 @@ public void deltloaned()
     this.sid.setText("");
     this.bid.setText("");
     this.sfname.setText("");
+    sform.setText("");
     this.slname.setText("");
     this.btitle.setText("");
     this.Bedition.setText("");
@@ -779,7 +793,8 @@ public void deltloaned()
   
   public void calcdate()
   {
-    Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       Statement st3 = con.createStatement();

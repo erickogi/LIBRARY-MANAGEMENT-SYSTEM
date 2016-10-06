@@ -48,14 +48,14 @@ String admin;
     } catch (Exception ex) {
         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
-        try
-    {
-      selectname();
-    }
-    catch (Exception ex)
-    {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-    }
+//        try
+//    {
+//      selectname();
+//    }
+//    catch (Exception ex)
+//    {
+//      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//    }
                try
     {
         selecton();
@@ -64,29 +64,39 @@ String admin;
     {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
- this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+// this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
+//        this.setTitle("ITHANGA SECONDARY SCHOOL");
+    methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
+ // String m=  n.selectnamei();
+ String mo= n.selectnamei();
+  schoolname.setText(mo);
        // admin();
     }
-  public void selectname()
-    throws Exception
-  {
-    Connection con = getConnection();
-    Statement st2 = con.createStatement();
-    
-    ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
-    while (res7.next()) {
-      tt=(res7.getString("name"));
-      schoolname.setText(tt);
-    }
-    st2.close();
-    res7.close();
-    con.close();
-  }
+//  public void selectname()
+//    throws Exception
+//  {
+//   methods m=new methods();
+//        Connection con = m.getConnection();
+//    Statement st2 = con.createStatement();
+//    
+//    ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
+//    while (res7.next()) {
+//      tt=(res7.getString("name"));
+//      schoolname.setText(tt);
+//    }
+//    st2.close();
+//    res7.close();
+//    con.close();
+//  }
   public void selecton()
     throws Exception
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT user_name FROM lib_user  WHERE id=1 ");
@@ -98,19 +108,19 @@ String admin;
     res7.close();
     con.close();
   }
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
 //   public void select()
 //    throws Exception
 //  {
@@ -140,7 +150,8 @@ String admin;
   {
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT pdfs FROM libprefrence  WHERE id=1");

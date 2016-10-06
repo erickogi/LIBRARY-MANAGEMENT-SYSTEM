@@ -54,8 +54,13 @@ public class prefrences extends javax.swing.JFrame {
     {
       Logger.getLogger(prefrences.class.getName()).log(Level.SEVERE, null, ex);
     }
-    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+//    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
+//        this.setTitle(tt);
+     methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     this.name.addActionListener(new ActionListener()
     {
       public void actionPerformed(ActionEvent b)
@@ -75,7 +80,8 @@ public class prefrences extends javax.swing.JFrame {
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+                Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -86,24 +92,25 @@ public class prefrences extends javax.swing.JFrame {
     res7.close();
     con.close();
   }
- public Connection getConnection()
-  {
-    try
-    {
-      return DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    return null;
-  }
+// public Connection getConnection()
+//  {
+//    try
+//    {
+//      return DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception e)
+//    {
+//      e.printStackTrace();
+//    }
+//    return null;
+//  }
   public void showimg()
     throws Exception
   {
     try
     {
-      Connection con = getConnection();
+       methods m=new methods();
+                Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT pdfs FROM libprefrence  WHERE id=1");
@@ -152,7 +159,8 @@ public class prefrences extends javax.swing.JFrame {
   public void select()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+    Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     Statement st0 = con.createStatement();
     Statement sta = con.createStatement();
@@ -187,7 +195,8 @@ public class prefrences extends javax.swing.JFrame {
   
   public void executeSQlQuery(String query, String message)
   {
-    Connection con = getConnection();
+     methods m=new methods();
+     Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();

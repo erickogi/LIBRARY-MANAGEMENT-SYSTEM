@@ -92,8 +92,11 @@ public class LOAN extends javax.swing.JFrame {
     {
       Logger.getLogger(LOAN.class.getName()).log(Level.SEVERE, null, ex);
     }
-     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+    methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     this.bid.addActionListener(new ActionListener()
     {
       public void actionPerformed(ActionEvent b)
@@ -131,7 +134,9 @@ public class LOAN extends javax.swing.JFrame {
     this.iconl.setText(" no image");
     try
     {
-      Connection con = getConnection();
+        methods m=new methods();
+       // Connection con = m.getConnection();
+      Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
@@ -185,7 +190,9 @@ public class LOAN extends javax.swing.JFrame {
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
+      //Connection con = getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -200,7 +207,9 @@ public class LOAN extends javax.swing.JFrame {
   public void select11()
     throws Exception
   {
-    Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
+    //Connection con = getConnection();
     Statement st2 = con.createStatement();
     Statement st1 = con.createStatement();
     Statement st0 = con.createStatement();
@@ -225,7 +234,9 @@ public class LOAN extends javax.swing.JFrame {
   public void select()
     throws Exception
   {
-    Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
+    //Connection con = getConnection();
     Statement st2 = con.createStatement();
     Statement st1 = con.createStatement();
     Statement st0 = con.createStatement();
@@ -263,26 +274,28 @@ public class LOAN extends javax.swing.JFrame {
     con.close();
   }
   
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<db> ListUsers(String ValToSearch)
   {
     ArrayList<db> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+        methods m=new methods();
+        Connection con = m.getConnection();
+     // Connection con = getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `books` WHERE CONCAT(`id`, `title`, `ediion`, `status`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -324,7 +337,8 @@ public class LOAN extends javax.swing.JFrame {
   
   public void loan(String query, String message)
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();
@@ -603,7 +617,8 @@ public class LOAN extends javax.swing.JFrame {
             {
                 String t = "";
 
-                Connection con = getConnection();
+               methods m=new methods();
+        Connection con = m.getConnection();
                 Statement st2 = con.createStatement();
                 Statement st0 = con.createStatement();
                 ResultSet res7 = st2.executeQuery("SELECT fname FROM loaned  WHERE sid=" + this.sid.getText() + "");
@@ -708,7 +723,8 @@ this.sid.setText("");
                 }
                 else
                 {
-                    Connection connection = getConnection();
+                   methods m=new methods();
+        Connection connection = m.getConnection();
                     int b = 1;
                     String query = "INSERT INTO `loaned`(`no`, `bid`, `sid`,`fname`,`lname`,`title`,`updated_at`,`form`,`class`,`edition`) VALUES (" + b + ",'" + this.bid.getText() + "','" + this.sid.getText() + "','" + this.sfname.getText() + "','" + this.slname.getText() + "','" + this.btitle.getText() + "',now(),'" + this.y + "','" + this.sformc.getText() + "', '" + this.Bedition.getText() + "')";
 
@@ -735,7 +751,8 @@ public void updatebooks(){
             {
 
                 String x = "not availabe";
-                Connection connection = getConnection();
+                methods m=new methods();
+        Connection connection = m.getConnection();
                 String sql = "UPDATE books SET status = '" + x + "'  WHERE id='" + this.bid.getText() + "'";
 
                 PreparedStatement pst = connection.prepareStatement(sql);

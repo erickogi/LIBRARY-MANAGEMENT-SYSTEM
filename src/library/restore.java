@@ -10,13 +10,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Connection;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Row;
 
-import com.mysql.jdbc.Connection;
+//import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
@@ -50,13 +51,17 @@ String libfines;
     {
       Logger.getLogger(LOAN.class.getName()).log(Level.SEVERE, null, ex);
     }
-     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+    methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     }
  public void selectname()
     throws Exception
   {
-    java.sql.Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -67,19 +72,19 @@ String libfines;
     res7.close();
     con.close();
   }
-  public java.sql.Connection getConnection()
-  {
-    java.sql.Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public java.sql.Connection getConnection()
+//  {
+//    java.sql.Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -231,9 +236,9 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
-            con.setAutoCommit(false);
+             methods m=new methods();
+             Connection con = m.getConnection();
+              con.setAutoCommit(false);
             PreparedStatement pstm = null ;
              //PreparedStatement pstm1 = null ;
            // this.fileurlp = this.student.replace("\\", "\\\\");
@@ -268,13 +273,12 @@ try{
             JOptionPane.showMessageDialog(null, "Success import excel to mysql table"
                );
             System.out.println("Success import excel to mysql table");
-        }catch(ClassNotFoundException e){
-            System.out.println(e);
         }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, "error import excel to mysql table");
             System.out.println(ex);
         }catch(IOException ioe){
             System.out.println(ioe);
+             JOptionPane.showMessageDialog(null, "error import excel to mysql table");
         }
 
     
@@ -309,8 +313,8 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+             methods m=new methods();
+        Connection con = m.getConnection();
             con.setAutoCommit(false);
             PreparedStatement pstm = null ;
            // this.fileurlp = this.student.replace("\\", "\\\\");
@@ -340,13 +344,12 @@ try{
              JOptionPane.showMessageDialog(null, "Success import excel to mysql table"
                );
             System.out.println("Success import excel to mysql table");
-        }catch(ClassNotFoundException e){
-            System.out.println(e);
         }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, "error import excel to mysql table");
             System.out.println(ex);
         }catch(IOException ioe){
             System.out.println(ioe);
+            JOptionPane.showMessageDialog(null, "error import excel to mysql table");
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -375,8 +378,8 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+            methods m=new methods();
+        Connection con = m.getConnection();
             con.setAutoCommit(false);
             PreparedStatement pstm = null ;
            // this.fileurlp = this.student.replace("\\", "\\\\");
@@ -416,13 +419,12 @@ try{
               JOptionPane.showMessageDialog(null, "Success import excel to mysql table"
                );
             System.out.println("Success import excel to mysql table");
-        }catch(ClassNotFoundException e){
-            System.out.println(e);
         }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, "error import excel to mysql table");
             System.out.println(ex);
         }catch(IOException ioe){
             System.out.println(ioe);
+            JOptionPane.showMessageDialog(null, "error import excel to mysql table");
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -451,8 +453,8 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+             methods m=new methods();
+        Connection con = m.getConnection();
             con.setAutoCommit(false);
             PreparedStatement pstm = null ;
            // this.fileurlp = this.student.replace("\\", "\\\\");
@@ -492,13 +494,12 @@ try{
               JOptionPane.showMessageDialog(null, "Success import excel to mysql table"
                );
             System.out.println("Success import excel to mysql table");
-        }catch(ClassNotFoundException e){
-            System.out.println(e);
         }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, "error import excel to mysql table");
             System.out.println(ex);
         }catch(IOException ioe){
             System.out.println(ioe);
+            JOptionPane.showMessageDialog(null, "error import excel to mysql table");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -526,8 +527,8 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
+            methods m=new methods();
+        Connection con = m.getConnection();
             con.setAutoCommit(false);
             PreparedStatement pstm = null ;
            // this.fileurlp = this.student.replace("\\", "\\\\");
@@ -558,13 +559,12 @@ try{
              JOptionPane.showMessageDialog(null, "Success import excel to mysql table"
                );
             System.out.println("Success import excel to mysql table");
-        }catch(ClassNotFoundException e){
-            System.out.println(e);
         }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, "error import excel to mysql table");
             System.out.println(ex);
         }catch(IOException ioe){
             System.out.println(ioe);
+             JOptionPane.showMessageDialog(null, "error import excel to mysql table");
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed

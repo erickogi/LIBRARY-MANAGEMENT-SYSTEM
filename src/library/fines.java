@@ -78,8 +78,11 @@ public class fines extends javax.swing.JFrame {
     {
       Logger.getLogger(LOAN.class.getName()).log(Level.SEVERE, null, ex);
     }
-     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+      methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     try
     {
       sum();
@@ -102,7 +105,8 @@ public class fines extends javax.swing.JFrame {
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+     Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -121,7 +125,8 @@ public class fines extends javax.swing.JFrame {
     double sum2 = 0.0D;
     double sum3 = 0.0D;
     String np="not paid";
-    Connection connection = getConnection();
+    methods m=new methods();
+        Connection connection = m.getConnection();
     Statement st = connection.createStatement();
     Statement st3 = connection.createStatement();
     Statement st2 = connection.createStatement();
@@ -164,7 +169,8 @@ public class fines extends javax.swing.JFrame {
     double sum2 = 0.0D;
     double sum3 = 0.0D;
     String np="paid";
-    Connection connection = getConnection();
+    methods m=new methods();
+        Connection connection = m.getConnection();
     Statement st = connection.createStatement();
     Statement st3 = connection.createStatement();
     Statement st2 = connection.createStatement();
@@ -199,26 +205,27 @@ public class fines extends javax.swing.JFrame {
     res1.close();
     connection.close();
   }
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<libfines> ListUsers(String ValToSearch)
   {
     ArrayList<libfines> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+       Connection con = m.getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `libfines` WHERE CONCAT(`id`, `amount`, `day`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -260,7 +267,8 @@ public class fines extends javax.swing.JFrame {
   
   public void executeSQlQuery(String query, String message)
   {
-    Connection con = getConnection();
+    methods m=new methods();
+   Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();

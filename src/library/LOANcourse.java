@@ -90,9 +90,15 @@ DefaultTableModel model = new DefaultTableModel();
     {
       Logger.getLogger(LOAN.class.getName()).log(Level.SEVERE, null, ex);
     }
-     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-        this.setTitle(tt);
+//     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
+//        this.setTitle(tt);
+    methods n=new methods();
+   String t= n.setTitle();
+    this.setTitle(t);
+    String i=n.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
     this.sid.addActionListener(new ActionListener()
+            
     {
       public void actionPerformed(ActionEvent b)
       {
@@ -116,7 +122,8 @@ DefaultTableModel model = new DefaultTableModel();
     this.iconl.setText(" no image");
     try
     {
-      Connection con = getConnection();
+      methods m=new methods();
+        Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
       ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
@@ -170,7 +177,8 @@ DefaultTableModel model = new DefaultTableModel();
   public void selectname()
     throws Exception
   {
-    Connection con = getConnection();
+    methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
@@ -185,7 +193,8 @@ DefaultTableModel model = new DefaultTableModel();
   public void select()
     throws Exception
   {
-    Connection con = getConnection();
+   methods m=new methods();
+        Connection con = m.getConnection();
     Statement st2 = con.createStatement();
     Statement st1 = con.createStatement();
     Statement st0 = con.createStatement();
@@ -222,26 +231,27 @@ DefaultTableModel model = new DefaultTableModel();
     con.close();
   }
   
-  public Connection getConnection()
-  {
-    Connection con = null;
-    try
-    {
-      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
-    }
-    catch (Exception ex)
-    {
-      System.out.println(ex.getMessage());
-    }
-    return con;
-  }
+//  public Connection getConnection()
+//  {
+//    Connection con = null;
+//    try
+//    {
+//      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
+//    }
+//    catch (Exception ex)
+//    {
+//      System.out.println(ex.getMessage());
+//    }
+//    return con;
+//  }
   
   public ArrayList<db> ListUsers(String ValToSearch)
   {
     ArrayList<db> usersList = new ArrayList();
     try
     {
-      Connection con = getConnection();
+     methods m=new methods();
+        Connection con = m.getConnection();
       Statement st = con.createStatement();
       String searchQuery = "SELECT * FROM `books` WHERE CONCAT(`id`, `title`, `ediion`, `status`) LIKE '%" + ValToSearch + "%'";
       ResultSet rs = st.executeQuery(searchQuery);
@@ -283,7 +293,8 @@ DefaultTableModel model = new DefaultTableModel();
   
   public void loan(String query, String message)
   {
-    Connection con = getConnection();
+        methods m=new methods();
+        Connection con = m.getConnection();
     try
     {
       Statement st = con.createStatement();
@@ -585,7 +596,8 @@ DefaultTableModel model = new DefaultTableModel();
       {
         String t = "";
         
-        Connection con = getConnection();
+        methods m=new methods();
+        Connection con = m.getConnection();
         
         Statement st3 = con.createStatement();
         
@@ -647,7 +659,8 @@ DefaultTableModel model = new DefaultTableModel();
         }
         else
         {
-          Connection connection = getConnection();
+          methods m=new methods();
+        Connection connection = m.getConnection();
           int b = 1;
           String query = "INSERT INTO `loanedcourse`(`no`, `bid`, `sid`,`fname`,`lname`,`title`,`updated_at`,`form`,`class`,`edition`) VALUES (" + b + ",'" + this.bid.getText() + "','" + this.sid.getText() + "','" + this.sfname.getText() + "','" + this.slname.getText() + "','" + this.btitle.getText() + "',now(),'" + this.y + "','" + this.sformc.getText() + "', '" + this.Bedition.getText() + "')";
           
@@ -672,7 +685,8 @@ DefaultTableModel model = new DefaultTableModel();
           try
       {
         String x = "not availabe";
-        Connection connection = getConnection();
+       methods m=new methods();
+        Connection connection = m.getConnection();
         
         String sql = "UPDATE books SET status = '" + x + "'  WHERE id='" + this.bid.getText() + "'";
         
