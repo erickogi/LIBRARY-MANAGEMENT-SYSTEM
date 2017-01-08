@@ -5,17 +5,20 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -41,6 +44,10 @@ public class prefrences extends javax.swing.JFrame {
     try
     {
       select();
+      methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -165,11 +172,13 @@ public class prefrences extends javax.swing.JFrame {
     Statement st0 = con.createStatement();
     Statement sta = con.createStatement();
     Statement stb = con.createStatement();
+     Statement stC= con.createStatement();
     ResultSet res7 = st2.executeQuery("SELECT name FROM libprefrence  ");
     ResultSet res8 = st0.executeQuery("SELECT days FROM libprefrence   ");
     ResultSet resa = sta.executeQuery("SELECT perday FROM libprefrence   ");
     ResultSet resb = stb.executeQuery("SELECT pdfs FROM libprefrence   ");
-    while ((res7.next()) && (res8.next()) && (resa.next()) && (resb.next()))
+    ResultSet resj = stC.executeQuery("SELECT daysc FROM libprefrence   ");
+    while ((res7.next()) && (res8.next()) && (resa.next()) && (resb.next())&&(resj.next()))
     {
       this.name.setText(res7.getString("name"));
       String sid=(resb.getString("pdfs"));
@@ -177,6 +186,8 @@ public class prefrences extends javax.swing.JFrame {
       int y = res8.getInt("days");
       this.fine.setText(Integer.toString(y));
       int y1 = resa.getInt("perday");
+      int j=resj.getInt("daysc");
+      mfcb.setText(Integer.toString(j));
       this.maximumdays.setText(Integer.toString(y1));
       showimg();
     }
@@ -233,10 +244,11 @@ public class prefrences extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        mfcb = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jColorChooser1 = new javax.swing.JColorChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         fine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,14 +278,21 @@ public class prefrences extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("MAXIMUM DAYS FOR COURSE BOOKS");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(maximumdays)
                     .addComponent(name)
@@ -282,8 +301,10 @@ public class prefrences extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                .addGap(69, 69, 69))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                    .addComponent(mfcb)
+                    .addComponent(jLabel4))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,16 +319,26 @@ public class prefrences extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(maximumdays, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
                         .addGap(10, 10, 10)
+                        .addComponent(mfcb, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fine, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(38, 38, 38)
-                .addComponent(jButton2)
-                .addGap(151, 151, 151))
+                        .addComponent(fine, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(358, 358, 358))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,7 +349,9 @@ public class prefrences extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
         );
 
         pack();
@@ -362,9 +395,64 @@ public class prefrences extends javax.swing.JFrame {
     private void fineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fineActionPerformed
-
+public String readTxt(){
+     String col="";
+      try{
+         File x=new File("C:\\Users\\kimani kogi\\Documents\\file.txt"); 
+        // File x=new File("file.txt");
+           Scanner sc=new Scanner(x);
+           String fs="";
+           while(sc.hasNext()){
+              col=col+sc.next(); 
+              }
+           
+             try{
+                 
+            
+     
+       Color c=new Color(Integer.parseInt(col));
+       }
+           
+            
+       catch(Exception cc){
+          // c.printStackTrace();
+           col="-1";
+       }
+      }
+        catch(Exception cc){
+          cc.printStackTrace();
+           col="-1";
+       }
+      return col;
+}
+public void writeCol(String newcol){
+    FileWriter writer = null;
+      try {
+          writer = new FileWriter("file.txt");
+          writer.write(newcol);
+          writer.close();
+      } catch (IOException ex) {
+          Logger.getLogger(prefrences.class.getName()).log(Level.SEVERE, null, ex);
+      } finally {
+          try {
+              writer.close();
+          } catch (IOException ex) {
+              Logger.getLogger(prefrences.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      }
+}
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-String query = "UPDATE `libprefrence` SET `name`='" + this.name.getText() + "',`days`='" + this.maximumdays.getText() + "',`perday`='" + this.fine.getText() + "',`pdfs`='" + this.fileurlp + "'";
+ 
+        Color c=jColorChooser1.getColor();
+ String newcol=Integer.toString(c.getRGB());
+ String oldcol=readTxt();
+ 
+ writeCol(newcol);
+ 
+ //JOptionPane.showMessageDialog(null, color);//
+        
+        
+        String query = "UPDATE `libprefrence` SET `name`='" + this.name.getText() + "',`days`='" + this.maximumdays.getText() + "',`daysc`='" + this.mfcb.getText() + "',`perday`='" + this.fine.getText() + "',`pdfs`='" + this.fileurlp + "'";
     
     executeSQlQuery(query, "Updated");        
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -409,11 +497,14 @@ String query = "UPDATE `libprefrence` SET `name`='" + this.name.getText() + "',`
     private javax.swing.JLabel iconl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField maximumdays;
+    private javax.swing.JTextField mfcb;
     private javax.swing.JTextField name;
     // End of variables declaration//GEN-END:variables
 }

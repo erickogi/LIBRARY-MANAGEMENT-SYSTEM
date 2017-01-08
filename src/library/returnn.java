@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -53,6 +54,7 @@ public class returnn extends javax.swing.JFrame {
   String filePath;
    String tt;
   String fileurlp = null;
+ //  ButtonGroup editableGroup = new ButtonGroup();
   int p=0;
   int np=0;
   Double h;
@@ -96,6 +98,10 @@ this.table = new JTable(this.model);
     try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -182,7 +188,7 @@ p=0;
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next())
       {
         this.filePath = res7.getString("imgurl");
@@ -252,16 +258,14 @@ p=0;
      methods m=new methods();
         Connection con = m.getConnection();
     Statement st2 = con.createStatement();
-    Statement st3 = con.createStatement();
-    Statement st0 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT fname FROM loaned  WHERE sid=" + this.sid.getText() + "");
-    ResultSet res8 = st0.executeQuery("SELECT lname FROM loaned  WHERE sid=" + this.sid.getText() + "");
-     ResultSet res9 = st3.executeQuery("SELECT form FROM loaned  WHERE sid=" + this.sid.getText() + "");
-    if ((res7.next()) && (res8.next())&& (res9.next()))
+  
+    ResultSet res7 = st2.executeQuery("SELECT * FROM loaned  WHERE sid='" + this.sid.getText() + "'");
+   
+    if (res7.next())
     {
       this.sfname.setText(res7.getString("fname"));
-      this.slname.setText(res8.getString("lname"));
-      this.sform.setText(res9.getString("form"));
+      this.slname.setText(res7.getString("lname"));
+      this.sform.setText(res7.getString("form"));
     }
     else
     {
@@ -271,11 +275,9 @@ p=0;
       this.slname.setText("");
     }
     st2.close();
-    st0.close();
-     st3.close();
+   
     res7.close();
-    res8.close();
-    res9.close();
+   
     con.close();
   }
   
@@ -285,18 +287,18 @@ p=0;
     methods m=new methods();
         Connection con = m.getConnection();
     Statement st2 = con.createStatement();
-    Statement st0 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT title FROM loaned  WHERE bid=" + this.bid.getText() + "");
-    ResultSet res8 = st0.executeQuery("SELECT edition FROM loaned  WHERE bid=" + this.bid.getText() + " ");
-    while ((res7.next()) && (res8.next()))
+  
+    ResultSet res7 = st2.executeQuery("SELECT * FROM loaned  WHERE bid='" + this.bid.getText() + "'");
+   
+    while (res7.next())
     {
       this.btitle.setText(res7.getString("title"));
-      this.Bedition.setText(res8.getString("edition"));
+      this.Bedition.setText(res7.getString("edition"));
     }
     st2.close();
-    st0.close();
+   
     res7.close();
-    res8.close();
+   
     con.close();
   }
   
@@ -326,7 +328,7 @@ p=0;
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getInt("sid"), rs.getString("title"), rs.getString("updated_at"));
+        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getString("sid"), rs.getString("title"), rs.getString("updated_at"));
         
         usersList.add(user);
       }
@@ -512,8 +514,6 @@ p=0;
         np1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -789,7 +789,7 @@ p=0;
     }//GEN-LAST:event_jButton3ActionPerformed
 public void newbook(){
      String q = "available";
-     if (sid.getText()!=("")&&bid.getText()!=("")&&btitle.getText()!=(null)&&Bedition.getText()!=("")){
+     if (sid.getText().equals("")&&bid.getText().equals("")&&btitle.getText()!=(null)&&Bedition.getText()!=("")){
     try
     {
       String stru = this.bid.getText();
@@ -862,7 +862,7 @@ public void newbook(){
   {
     try
     {
-      String query = "DELETE FROM `loaned` WHERE bid = '" + this.bid.getText() + "' AND sid=" + this.sid.getText();
+      String query = "DELETE FROM `loaned` WHERE bid = '" + this.bid.getText() + "' AND sid='" + this.sid.getText()+"'";
       executeSQlQuery(query, "Deleted");
       update();
             p=0;
@@ -880,7 +880,7 @@ public void newbook(){
   {
     try
     {
-      String query = "DELETE FROM `loaned` WHERE bid = '" + this.bid.getText() + "' AND sid=" + this.sid.getText();
+      String query = "DELETE FROM `loaned` WHERE bid = '" + this.bid.getText() + "' AND sid='" + this.sid.getText()+"'";
       executeSQlQuery1(query, "Deleted");
       newbook();
              p=0;

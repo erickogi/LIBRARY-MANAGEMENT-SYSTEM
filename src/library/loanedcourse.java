@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -80,6 +81,10 @@ public class loanedcourse extends javax.swing.JFrame {
     try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -180,7 +185,7 @@ public class loanedcourse extends javax.swing.JFrame {
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getInt("sid"), rs.getString("title"), rs.getString("updated_at"));
+        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getString("sid"), rs.getString("title"), rs.getString("updated_at"));
         
         usersList.add(user);
       }
@@ -204,7 +209,7 @@ public class loanedcourse extends javax.swing.JFrame {
     Object[] row = new Object[5];
     for (int i = 0; i < users.size(); i++)
     {
-      row[0] = Integer.valueOf(((returndb)users.get(i)).getSid());
+      row[0] = ((returndb)users.get(i)).getSid();
       row[1] = ((returndb)users.get(i)).getBid();
       row[2] = ((returndb)users.get(i)).getTitle();
       row[3] = ((returndb)users.get(i)).getEdition();
@@ -237,8 +242,6 @@ public class loanedcourse extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -388,20 +391,16 @@ public class loanedcourse extends javax.swing.JFrame {
       methods m=new methods();
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
-      Statement st0 = con.createStatement();
-      Statement st3 = con.createStatement();
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM loanedcourse  WHERE bid='" + this.bid.getText() + "'");
-      ResultSet res8 = st0.executeQuery("SELECT title FROM loanedcourse  WHERE bid='" + this.bid.getText() + "'");
-      ResultSet res9 = st3.executeQuery("SELECT updated_at FROM loanedcourse  WHERE bid='" + this.bid.getText() + " '");
-      if ((res7.next()) && (res8.next()) && (res9.next()))
+      
+      ResultSet res7 = st2.executeQuery("SELECT * FROM loanedcourse  WHERE bid='" + this.bid.getText() + "'");
+     
+      if (res7.next())
       {
-        JOptionPane.showMessageDialog(null, "" + res8.getString("title") + "'  given to  " + "\n" + "      " + res7.getString("fname") + "  on" + "\n" + "" + res9.getString("updated_at") + "");
+        JOptionPane.showMessageDialog(null, "" + res7.getString("title") + "'  given to  " + "\n" + "      " + res7.getString("fname") + "  on" + "\n" + "" + res7.getString("updated_at") + "");
         st2.close();
-        st0.close();
-        st3.close();
+      
         res7.close();
-        res8.close();
-        res9.close();
+       
         
         con.close();
       }
@@ -427,8 +426,8 @@ public class loanedcourse extends javax.swing.JFrame {
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
-      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loanedcourse  WHERE sid=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id='" + this.sid.getText() + "'");
+      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loanedcourse  WHERE sid='" + this.sid.getText() + "'");
       if ((res7.next()) && (res8.next()))
       {
         int f = res8.getInt(1);
@@ -458,7 +457,7 @@ public class loanedcourse extends javax.swing.JFrame {
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next()) {
         this.filePath = res7.getString("imgurl");
       } else {

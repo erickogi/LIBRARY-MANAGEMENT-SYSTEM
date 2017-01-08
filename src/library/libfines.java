@@ -13,7 +13,7 @@ import javax.swing.table.TableModel;
  * @author kimani kogi
  */
 public class libfines {
-     private int id;
+     private String id;
   private String amount;
    
   private String day;
@@ -25,7 +25,7 @@ public class libfines {
     throw new UnsupportedOperationException("Not supported yet.");
   }
   
-  public libfines(int Id, String Amount,String Day, String Status )
+  public libfines(String Id, String Amount,String Day, String Status )
   {
     this.id = Id;
     this.amount = Amount;
@@ -33,7 +33,7 @@ public class libfines {
     this.status = Status;
   }
   
-  public int getId()
+  public String getId()
   {
     return this.id;
   }

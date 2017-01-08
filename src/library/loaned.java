@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -79,6 +80,10 @@ DefaultTableModel model = new DefaultTableModel();
     findUsers();
     try
     {
+    methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
       selectname();
     }
     catch (Exception ex)
@@ -168,7 +173,7 @@ DefaultTableModel model = new DefaultTableModel();
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getInt("sid"), rs.getString("title"), rs.getString("updated_at"));
+        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getString("sid"), rs.getString("title"), rs.getString("updated_at"));
         
         usersList.add(user);
       }
@@ -192,7 +197,7 @@ DefaultTableModel model = new DefaultTableModel();
     Object[] row = new Object[6];
     for (int i = 0; i < users.size(); i++)
     {
-      row[0] = Integer.valueOf(((returndb)users.get(i)).getSid());
+      row[0] = ((returndb)users.get(i)).getSid();
       row[1] = ((returndb)users.get(i)).getFname();
       row[2] = ((returndb)users.get(i)).getBid();
       row[3] = ((returndb)users.get(i)).getTitle();
@@ -226,8 +231,6 @@ DefaultTableModel model = new DefaultTableModel();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -380,20 +383,16 @@ DefaultTableModel model = new DefaultTableModel();
       methods m=new methods();
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
-      Statement st0 = con.createStatement();
-      Statement st3 = con.createStatement();
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM loaned  WHERE bid='" + this.bid.getText() + "'");
-      ResultSet res8 = st0.executeQuery("SELECT title FROM loaned  WHERE bid='" + this.bid.getText() + "'");
-      ResultSet res9 = st3.executeQuery("SELECT updated_at FROM loaned  WHERE bid='" + this.bid.getText() + " '");
-      if ((res7.next()) && (res8.next()) && (res9.next()))
+
+      ResultSet res7 = st2.executeQuery("SELECT * FROM loaned  WHERE bid='" + this.bid.getText() + "'");
+    
+      if (res7.next())
       {
-        JOptionPane.showMessageDialog(null, "" + res8.getString("title") + "'  loaned to  " + "\n" + "      " + res7.getString("fname") + "  on" + "\n" + "" + res9.getString("updated_at") + "");
+        JOptionPane.showMessageDialog(null, "" + res7.getString("title") + "'  loaned to  " + "\n" + "      " + res7.getString("fname") + "  on" + "\n" + "" + res7.getString("updated_at") + "");
         st2.close();
-        st0.close();
-        st3.close();
+       
         res7.close();
-        res8.close();
-        res9.close();
+        
         
         con.close();
       }
@@ -412,7 +411,7 @@ DefaultTableModel model = new DefaultTableModel();
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next()) {
         this.filePath = res7.getString("imgurl");
       } else {
@@ -470,8 +469,8 @@ DefaultTableModel model = new DefaultTableModel();
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
-      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loaned  WHERE sid=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id='" + this.sid.getText() + "'");
+      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loaned  WHERE sid='" + this.sid.getText() + "'");
       if ((res7.next()) && (res8.next()))
       {
         int f = res8.getInt(1);

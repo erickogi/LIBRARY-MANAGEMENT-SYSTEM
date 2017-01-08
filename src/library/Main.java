@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -43,6 +44,10 @@ String admin;
         
         //myTopLevelContainer.setTitle("hj");
         initComponents();
+       // String image="academic.png";
+       // ImageIcon icon=new ImageIcon(image);
+          //String image="academic.png";
+       // ic.setIcon(icon);
     try {
         showimg();
     } catch (Exception ex) {
@@ -59,6 +64,10 @@ String admin;
                try
     {
         selecton();
+        methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -73,7 +82,10 @@ String admin;
     this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
  // String m=  n.selectnamei();
  String mo= n.selectnamei();
-  schoolname.setText(mo);
+ //for changeable name uncomment next line
+ // schoolname.setText(mo);
+ //for changable name uncomment next line
+ schoolname.setText("ITHANGA SECONDARY SCHOOL ");
        // admin();
     }
 //  public void selectname()
@@ -92,7 +104,7 @@ String admin;
 //    res7.close();
 //    con.close();
 //  }
-  public void selecton()
+   public void selecton()
     throws Exception
   {
    methods m=new methods();
@@ -107,6 +119,8 @@ String admin;
     st2.close();
     res7.close();
     con.close();
+  
+  
   }
 //  public Connection getConnection()
 //  {
@@ -271,8 +285,6 @@ String admin;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ITHANGA SECONDARY SCHOOL");
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
-
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("WELCOME");
 
@@ -293,15 +305,17 @@ String admin;
                 .addComponent(schoolname)
                 .addGap(240, 240, 240))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(323, 323, 323)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(443, 443, 443)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(323, 323, 323)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(443, 443, 443)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30)
+                        .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(348, 348, 348))
         );
         jPanel1Layout.setVerticalGroup(
@@ -637,6 +651,7 @@ String admin;
        clean  b=new clean();
         b.setVisible(true);
         }
+        
        
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 

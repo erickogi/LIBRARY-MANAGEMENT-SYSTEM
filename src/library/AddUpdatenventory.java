@@ -5,6 +5,8 @@
  */
 package library;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,9 +72,16 @@ public class AddUpdatenventory extends javax.swing.JFrame {
     });
     initComponents();
     findUsers();
+    
+    jPanel1.setBackground(Color.yellow);
+   // paintComponent(this);
     try
     {
       selectname();
+     methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -245,7 +254,7 @@ public class AddUpdatenventory extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 51, 255));
+        jPanel1.setBackground(Color.RED);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -260,6 +269,11 @@ public class AddUpdatenventory extends javax.swing.JFrame {
         ));
         table.setRowHeight(40);
         table.setRowMargin(4);
+        table.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                tableMouseDragged(evt);
+            }
+        });
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableMouseClicked(evt);
@@ -429,9 +443,13 @@ public class AddUpdatenventory extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         delete();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tableMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableMouseDragged
 public void delete(){
     {
-    String query = "DELETE FROM `books` WHERE id = " + this.bid.getText();
+    String query = ("DELETE FROM `books` WHERE id ='" + this.bid.getText()+"'");
     
     executeSQlQuery(query, "Deleted");
   }

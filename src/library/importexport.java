@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +43,10 @@ String tt;
         try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -96,8 +101,6 @@ String tt;
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         jButton1.setText("EXPORT");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

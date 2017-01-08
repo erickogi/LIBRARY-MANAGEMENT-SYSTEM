@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 //import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,6 +27,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 
 /**
  *
@@ -46,6 +49,10 @@ String libfines;
          try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -107,8 +114,6 @@ String libfines;
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         jButton1.setText("STUDENTS RECORDS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -236,6 +241,7 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
+    DataFormatter forma =new DataFormatter();
              methods m=new methods();
              Connection con = m.getConnection();
               con.setAutoCommit(false);
@@ -249,12 +255,25 @@ try{
             Row row;
             for(int i=1; i<=sheet.getLastRowNum(); i++){
                 row = sheet.getRow(i);
-                String sid =  row.getCell(0).getStringCellValue();
-                String fname = row.getCell(1).getStringCellValue();
-                String lastname = row.getCell(2).getStringCellValue();
-                String form = row.getCell(3).getStringCellValue();
-                String classs = row.getCell(4).getStringCellValue();
-                String imgurlK = row.getCell(5).getStringCellValue();
+                    Cell sidc=row.getCell(0);
+                Cell fnamec=row.getCell(1);
+                Cell lastnamec=row.getCell(2);
+                Cell formc=row.getCell(3);
+                Cell classc=row.getCell(4);
+                Cell imagec=row.getCell(5);
+                String sid=forma.formatCellValue(sidc);
+                  String fname=forma.formatCellValue(fnamec);
+                    String lastname=forma.formatCellValue(lastnamec);
+                      String form=forma.formatCellValue(formc);
+                      String classs=forma.formatCellValue(classc);
+                      String imgurlK=forma.formatCellValue(imagec);
+                
+//                String sid =   row.getCell(0).getStringCellValue();
+//                String fname = row.getCell(1).getStringCellValue();
+//                String lastname = row.getCell(2).getStringCellValue();
+//                String form = row.getCell(3).getStringCellValue();
+//                String classs = row.getCell(4).getStringCellValue();
+//                String imgurlK = row.getCell(5).getStringCellValue();
                 
                 String imgurl =imgurlK.replace("\\", "\\\\");
                 //String sql1="DROP TABLE IF EXISTS students";
@@ -313,6 +332,7 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
+    DataFormatter form =new DataFormatter();
              methods m=new methods();
         Connection con = m.getConnection();
             con.setAutoCommit(false);
@@ -325,10 +345,18 @@ try{
             Row row;
             for(int i=1; i<=sheet.getLastRowNum(); i++){
                 row = sheet.getRow(i);
-                String id =  row.getCell(0).getStringCellValue();
-                String title = row.getCell(1).getStringCellValue();
-                String ediion = row.getCell(2).getStringCellValue();
-                String status = row.getCell(3).getStringCellValue();
+                Cell idc=row.getCell(0);
+                Cell titlec=row.getCell(1);
+                Cell ediionc=row.getCell(2);
+                Cell statusc=row.getCell(3);
+                String id=form.formatCellValue(idc);
+                  String title=form.formatCellValue(titlec);
+                    String ediion=form.formatCellValue(ediionc);
+                      String status=form.formatCellValue(statusc);
+             //   String id =  row.getCell(0).getStringCellValue();
+              //  String title = row.getCell(1).getStringCellValue();
+              //  String ediion = row.getCell(2).getStringCellValue();
+              //  String status = row.getCell(3).getStringCellValue();
                 
                 
                 //String imgurl =imgurlK.replace("\\", "\\\\");
@@ -378,6 +406,7 @@ if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     System.out.println("No Selection");
 }
 try{
+    DataFormatter forma =new DataFormatter();
             methods m=new methods();
         Connection con = m.getConnection();
             con.setAutoCommit(false);

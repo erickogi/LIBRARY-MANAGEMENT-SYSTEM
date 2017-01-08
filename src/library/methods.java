@@ -5,13 +5,20 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,46 +28,37 @@ import javax.swing.JOptionPane;
  * @author kimani kogi
  */
 public class methods {
-    String tt;
-   static String path;
-   
-   //  path = "localhost";
-   // String h="\"jdbc:mysql://localhost:3306/library\", \"root\", \"123ERYcog.\"";
-   
-  String db=":3306/library";
-  String jdbc="jdbc:mysql://";
-  String user="root";
-  String pass="123ERYcog.";
-  String dbp=(jdbc+path+db);
+   String tt;
+  String path;
   
-   //  selectname();
-   
-//    public void nameimage(){
-//         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
-//        setTitle("ITHANGA SECONDARY SCHOOL");
-//    }
-//  public void setpdb(String url){
-//      path=url;
-//      dbpath n=new dbpath();
-//     // r();
-//  }
-//   public void r(String h){
-//    path=h;
-//    dbpath n=new dbpath();
-//    String query = "UPDATE `dbpath` SET `path`='" +h+ "'";
-//    executeSQlQueryb(query, "Updated"); 
-// }
-//  public String getpdb(){
-//      return path;
-//  }
-  public void create(){
-     Connection con = null;
+public Connection getConnectiondb()
+  {
+    Connection con = null;
     try
     {
-        String url="jdbc:derby://myDB;create=true;user=me;password=mine";
-        // selectdbpath();
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-      con = DriverManager.getConnection(dbp,user,pass);
+      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/libclient", "root", "123ERYcog.");
+    }
+    catch (Exception ex)
+    {
+      System.out.println(ex.getMessage());
+    }
+    return con;
+  }
+  
+  public void getPath(){
+    // Connection con = null;
+    try
+    {
+      Connection con = getConnectiondb();
+    Statement st2 = con.createStatement();
+    
+    ResultSet res7 = st2.executeQuery("SELECT path FROM dbpath  ");
+    while (res7.next()) {
+      path=(res7.getString("path"));
+    
+     // SHOW.setText(path);
+    }
+     con.close();
      // con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
     }
     catch (Exception ex)
@@ -68,29 +66,48 @@ public class methods {
       System.out.println(ex.getMessage());
     }
 }
-  
-    public void selectdbpath()
-    throws Exception
-  {
-   
-        Connection con = getConnection();
-        Statement st2 = con.createStatement();
+public void updatePath(String h){
     
-    ResultSet res7 = st2.executeQuery("SELECT path FROM dbpath  ");
-    while (res7.next()) {
-       path=(res7.getString("path"));
+    // Connection con = null;
+    try
+    {
+        //String url="jdbc:derby://myDB;create=true;user=me;password=mine";
+        // selectdbpath();
+      // Connection con = getConnectiondb();
+   // Statement st2 = con.createStatement();
+      // PreparedStatement st2 = con.prepareStatement
+    String query = "UPDATE `dbpath` SET `path`='" + h +"'";
+      
+      executeSQlQueryb(query, "Updated");
+       //st2.setString(1, h);
+       //st2.executeUpdate();
+       //executeSQlQueryb(r,message);
+    
+     // con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
     }
-    st2.close();
-    res7.close();
-    con.close();
-  }
+    catch (Exception ex)
+    {
+      System.out.println(ex.getMessage());
+      JOptionPane.showMessageDialog(null, "Data Not " );
+    }
+}
+
      public Connection getConnection()
   {
-   
+      //for client server situations ,unomment the following line getpath();
+      //then comment line 103=path="localhost";
+    //getPath();
     Connection con = null;
     try
     {
-        // selectdbpath();
+    
+   String db=":3306/library";
+   String jdbc="jdbc:mysql://";
+   String user="root";
+   String pass="123ERYcog.";
+   //for client server instance comment next line path =localhost
+   path="localhost";
+   String dbp=(jdbc+path+db);
         
       con = DriverManager.getConnection(dbp,user,pass);
      // con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "123ERYcog.");
@@ -103,7 +120,7 @@ public class methods {
   }
            public void executeSQlQueryb(String query, String message)
   {
-    Connection con = getConnection();
+    Connection con = getConnectiondb();
      try
     {
       Statement st = con.createStatement();
@@ -182,9 +199,7 @@ public class methods {
          return title;
     }
  public String selectnamei()
-         
-    
-  {
+ {
       String title;
        String  tti = null;
         try {
@@ -228,5 +243,39 @@ public class methods {
     res7.close();
     con.close();
   }
+    public String selectcolor()
+    throws Exception
+           
+  { String col="";
+      try{
+         File x=new File("file.txt"); 
+        // File x=new File("file.txt");
+           Scanner sc=new Scanner(x);
+           String fs="";
+           while(sc.hasNext()){
+              col=col+sc.next(); 
+              }
+           
+             try{
+                 
+            
+     
+       Color c=new Color(Integer.parseInt(col));
+       }
+           
+            
+       catch(Exception cc){
+          // c.printStackTrace();
+           col="-1";
+       }
+             
 
+      }
+        catch(Exception cc){
+         // cc.printStackTrace();
+           col="-1";
+       }
+    return col;
+  }
+    
 }

@@ -18,7 +18,7 @@ public class returndb {
   private String fname;
   private String lname;
   private int no;
-  private int sid;
+  private String sid;
   private String title;
   private String updated_at;
   
@@ -27,7 +27,7 @@ public class returndb {
     throw new UnsupportedOperationException("Not supported yet.");
   }
   
-  public returndb(String Bid, String Edition, String Fname, String Lname, int No, int Sid, String Title, String Upadated_at)
+  public returndb(String Bid, String Edition, String Fname, String Lname, int No, String Sid, String Title, String Upadated_at)
   {
     this.bid = Bid;
     this.edition = Edition;
@@ -65,7 +65,7 @@ public class returndb {
     return this.no;
   }
   
-  public int getSid()
+  public String getSid()
   {
     return this.sid;
   }

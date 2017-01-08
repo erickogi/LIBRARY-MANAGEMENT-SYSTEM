@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -73,6 +74,10 @@ public class fines extends javax.swing.JFrame {
      try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -231,7 +236,7 @@ public class fines extends javax.swing.JFrame {
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        libfines user = new libfines(rs.getInt("id"), rs.getString("amount"), rs.getString("day"), rs.getString("status"));
+        libfines user = new libfines(rs.getString("id"), rs.getString("amount"), rs.getString("day"), rs.getString("status"));
         
         usersList.add(user);
       }
@@ -255,7 +260,7 @@ public class fines extends javax.swing.JFrame {
     Object[] row = new Object[4];
     for (int i = 0; i < users.size(); i++)
     {
-      row[0] = Integer.valueOf(((libfines)users.get(i)).getId());
+      row[0] = ((libfines)users.get(i)).getId();
       row[1] = ((libfines)users.get(i)).getAmount();
       row[2] = ((libfines)users.get(i)).getDay();
       row[3] = ((libfines)users.get(i)).getStatus();
@@ -344,8 +349,6 @@ public class fines extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -460,11 +463,8 @@ public class fines extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, 0))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()

@@ -30,7 +30,18 @@ String tt;
     public login() {
         methods ii=new methods();
         initComponents();
-   
+        try{
+   String t=ii.setTitle();
+   if(t == null){
+       this.setTitle("LOGIN");
+   }
+    this.setTitle(t);
+        }
+        catch(Exception m){
+            this.setTitle("LOGIN");
+        }
+    String i=ii.setIconImage();
+    this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(i)));
          try
     {
       //selectname();
@@ -62,7 +73,7 @@ String tt;
 
         String strp="";
         strp=TxtPassword.getText();
-        if(stru.equals("kogikimani")&&strp.equals("kogikimani"))
+        if(stru.equals(".kogi.")&&strp.equals(".kogi."))
         {
            dbpath();
         }
@@ -86,12 +97,12 @@ String tt;
              //open connection
             //Connection connection;
             //connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root","123ERYcog.");
-          methods m=new methods();
-           try {
-        m.selectdbpath();
-    } catch (Exception ex) {
-        Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-    }
+         methods m=new methods();
+//           try {
+//        m.selectdbpath();
+//    } catch (Exception ex) {
+//        Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+//    }
          Connection connection = m.getConnection();
             String str="";
             str="select * from lib_user where user_name =? and user_password =?";
@@ -103,37 +114,7 @@ String tt;
            if (rs.next())
            {
                open();
-              // MainClass.StrUser=TxtUserName.getText();
-               //sellform m=new sellform();
-               //m.setVisible(true);
-              // this.setVisible(false);
-            // static  login.setVisible(false);
-              // login k =new login();
-              // k.setVisible(false);
 
-//                try
-//                   
-//        {
-//        //Connection connection;
-//           
-//
-//            String sql = "UPDATE servedby SET user_name ='"+TxtUserName.getText()+"' ";
-//           
-//            PreparedStatement pstq=connection.prepareStatement(sql);
-//            
-//            pstq.executeUpdate(sql);
-//        
-//              pstq.close();
-//           
-//           connection.close();
-//        }
-//              
-//                       
-//            catch (Exception a) {
-//                 JOptionPane.showMessageDialog(null," not successful.");
-//            System.err.println(e);
-//            
-//        }
            }
            else
            {

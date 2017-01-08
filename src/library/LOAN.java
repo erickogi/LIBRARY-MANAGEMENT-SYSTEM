@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -87,6 +88,10 @@ public class LOAN extends javax.swing.JFrame {
     try
     {
       selectname();
+      methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -139,7 +144,7 @@ public class LOAN extends javax.swing.JFrame {
       Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next())
       {
         this.filePath = res7.getString("imgurl");
@@ -211,23 +216,19 @@ public class LOAN extends javax.swing.JFrame {
         Connection con = m.getConnection();
     //Connection con = getConnection();
     Statement st2 = con.createStatement();
-    Statement st1 = con.createStatement();
-    Statement st0 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT title FROM books  WHERE id='" + this.bid.getText() + "'");
-    ResultSet res8 = st0.executeQuery("SELECT ediion FROM books  WHERE id='" + this.bid.getText() + "' ");
-    ResultSet res9 = st1.executeQuery("SELECT status FROM books  WHERE id='" + this.bid.getText() + "' ");
-    while ((res7.next()) && (res8.next()) && (res9.next()))
+ 
+    ResultSet res7 = st2.executeQuery("SELECT * FROM books  WHERE id='" + this.bid.getText() + "'");
+  
+    while ((res7.next()))
     {
       this.btitle.setText(res7.getString("title"));
-      this.Bedition.setText(res8.getString("ediion"));
-      this.bstatus.setText(res9.getString("status"));
+      this.Bedition.setText(res7.getString("ediion"));
+      this.bstatus.setText(res7.getString("status"));
     }
     st2.close();
-    st0.close();
-    st1.close();
+    
     res7.close();
-    res8.close();
-    res9.close();
+    
     con.close();
   }
   
@@ -238,20 +239,16 @@ public class LOAN extends javax.swing.JFrame {
         Connection con = m.getConnection();
     //Connection con = getConnection();
     Statement st2 = con.createStatement();
-    Statement st1 = con.createStatement();
-    Statement st0 = con.createStatement();
-    Statement st3 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
-    ResultSet res8 = st0.executeQuery("SELECT lastname FROM students  WHERE id=" + this.sid.getText() + " ");
-    ResultSet res9 = st1.executeQuery("SELECT form FROM students  WHERE id=" + this.sid.getText() + " ");
-     ResultSet res3 = st3.executeQuery("SELECT class FROM students  WHERE id=" + this.sid.getText() + " ");
-    if ((res7.next()) && (res8.next()) && (res9.next())&& (res3.next()))
+   
+    ResultSet res7 = st2.executeQuery("SELECT * FROM students  WHERE id='" + this.sid.getText() + "'");
+   
+    if (res7.next())
     {
       this.sfname.setText(res7.getString("fname"));
-      this.slname.setText(res8.getString("lastname"));
-      this.sform.setText(res9.getString("form"));
-      this.sformc.setText(res3.getString("class"));
-      this.y = res9.getString("form");
+      this.slname.setText(res7.getString("lastname"));
+      this.sform.setText(res7.getString("form"));
+      this.sformc.setText(res7.getString("class"));
+      this.y = res7.getString("form");
     }
     else
     {
@@ -264,13 +261,9 @@ public class LOAN extends javax.swing.JFrame {
       this.sformc.setText("");
     }
     st2.close();
-     st3.close();
-    st0.close();
-    st1.close();
+
     res7.close();
-    res8.close();
-    res9.close();
-    res3.close();
+
     con.close();
   }
   
@@ -390,8 +383,6 @@ public class LOAN extends javax.swing.JFrame {
         sformc = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -621,8 +612,8 @@ public class LOAN extends javax.swing.JFrame {
         Connection con = m.getConnection();
                 Statement st2 = con.createStatement();
                 Statement st0 = con.createStatement();
-                ResultSet res7 = st2.executeQuery("SELECT fname FROM loaned  WHERE sid=" + this.sid.getText() + "");
-                ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loaned  WHERE sid=" + this.sid.getText() + "");
+                ResultSet res7 = st2.executeQuery("SELECT fname FROM loaned  WHERE sid='" + this.sid.getText() + "'");
+                ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loaned  WHERE sid='" + this.sid.getText() + "'");
                 if ((res7.next()) && (res8.next()))
                 {
                     String b = res7.getString("fname");
@@ -693,7 +684,11 @@ this.sid.setText("");
     }//GEN-LAST:event_clearbtnActionPerformed
 
     private void loanbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanbtnActionPerformed
-              String t = this.sid.getText();
+           if(bid.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "no book");
+           }
+           else{
+        String t = this.sid.getText();
         String lo = this.sfname.getText();
         String ho = this.slname.getText();
         if (((lo.equals("")) && (t.equals(""))) || (ho.equals("")) || (lo.equals("")) || (t.equals("")))
@@ -745,6 +740,7 @@ this.sid.setText("");
            
         }
         findUsers();
+           }
     }//GEN-LAST:event_loanbtnActionPerformed
 public void updatebooks(){
                 try
@@ -759,6 +755,10 @@ public void updatebooks(){
                 pst.executeUpdate(sql);
                 pst.close();
                 connection.close();
+                  this.bid.setText("");
+                    this.Bedition.setText("");
+                    this.bstatus.setText("");
+                    this.btitle.setText("");
             }
             catch (Exception e)
             {

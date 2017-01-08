@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -51,6 +53,11 @@ public class returnncourse extends javax.swing.JFrame {
   String filePath;
   String fileurlp = null;
   String nwr;
+   ButtonGroup editableGroup = new ButtonGroup();
+  int p=0;
+  int np=0;
+  Double h;
+  String st;
     /**
      * Creates new form returnncourse
      */
@@ -91,6 +98,10 @@ this.table = new JTable(this.model);
     try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -139,6 +150,26 @@ this.table = new JTable(this.model);
         }
       }
     });
+    editableGroup.add(paid);
+    editableGroup.add(np1);
+     paid.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          p=1;
+          np=0;
+
+        }
+    });
+
+    //add disallow listener
+    np1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+np=1;
+p=0;
+        }
+    });
   }
   
   public void showimg()
@@ -152,7 +183,7 @@ this.table = new JTable(this.model);
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next())
       {
         this.filePath = res7.getString("imgurl");
@@ -225,16 +256,14 @@ this.table = new JTable(this.model);
     methods m=new methods();
         Connection con = m.getConnection();
     Statement st2 = con.createStatement();
-    Statement st0 = con.createStatement();
-    Statement st3 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT fname FROM loanedcourse  WHERE sid=" + this.sid.getText() + "");
-    ResultSet res8 = st0.executeQuery("SELECT lname FROM loanedcourse  WHERE sid=" + this.sid.getText() + " ");
-     ResultSet res9 = st3.executeQuery("SELECT form FROM loanedcourse  WHERE sid=" + this.sid.getText() + " ");
-    if ((res7.next()) && (res8.next())&& (res9.next()))
+  
+    ResultSet res7 = st2.executeQuery("SELECT * FROM loanedcourse  WHERE sid='"+ this.sid.getText() +"'");
+   
+    if (res7.next())
     {
       this.sfname.setText(res7.getString("fname"));
-      this.slname.setText(res8.getString("lname"));
-      this.sform.setText(res9.getString("form"));
+      this.slname.setText(res7.getString("lname"));
+      this.sform.setText(res7.getString("form"));
     }
     else
     {
@@ -244,9 +273,9 @@ this.table = new JTable(this.model);
       this.slname.setText("");
     }
     st2.close();
-    st0.close();
+   
     res7.close();
-    res8.close();
+  
     con.close();
   }
   
@@ -256,18 +285,18 @@ this.table = new JTable(this.model);
     methods m=new methods();
     Connection con = m.getConnection();
     Statement st2 = con.createStatement();
-    Statement st0 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT title FROM loaned  WHERE bid=" + this.bid.getText() + "");
-    ResultSet res8 = st0.executeQuery("SELECT edition FROM loaned  WHERE bid=" + this.bid.getText() + " ");
-    while ((res7.next()) && (res8.next()))
+   
+    ResultSet res7 = st2.executeQuery("SELECT * FROM loaned  WHERE bid='" + this.bid.getText() + "'");
+ 
+    while (res7.next())
     {
       this.btitle.setText(res7.getString("title"));
-      this.Bedition.setText(res8.getString("edition"));
+      this.Bedition.setText(res7.getString("edition"));
     }
     st2.close();
-    st0.close();
+  
     res7.close();
-    res8.close();
+  
     con.close();
   }
   
@@ -297,7 +326,7 @@ this.table = new JTable(this.model);
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getInt("sid"), rs.getString("title"), rs.getString("updated_at"));
+        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getString("sid"), rs.getString("title"), rs.getString("updated_at"));
         
         usersList.add(user);
       }
@@ -321,7 +350,7 @@ this.table = new JTable(this.model);
     Object[] row = new Object[5];
     for (int i = 0; i < users.size(); i++)
     {
-      row[0] = Integer.valueOf(((returndb)users.get(i)).getSid());
+      row[0] = ((returndb)users.get(i)).getSid();
       row[1] = ((returndb)users.get(i)).getBid();
       row[2] = ((returndb)users.get(i)).getTitle();
       row[3] = ((returndb)users.get(i)).getEdition();
@@ -412,7 +441,7 @@ this.table = new JTable(this.model);
       ResultSet rs4 = st4.executeQuery(query4);
       while (rs4.next())
       {
-        prefrence user = new prefrence(rs4.getString("name"), rs4.getInt("days"), rs4.getInt("perday"), rs4.getString("pdfs"));
+        prefrence user = new prefrence(rs4.getString("name"), rs4.getInt("daysc"), rs4.getInt("perday"), rs4.getString("pdfs"));
         
         usersList4.add(user);
       }
@@ -472,10 +501,12 @@ this.table = new JTable(this.model);
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         sform = new javax.swing.JTextField();
+        paid = new javax.swing.JRadioButton();
+        np1 = new javax.swing.JRadioButton();
+        fine = new javax.swing.JTextField();
+        day = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -553,45 +584,64 @@ this.table = new JTable(this.model);
 
         sform.setEditable(false);
 
+        paid.setText("Paid");
+
+        np1.setText("Not Paid");
+
+        fine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fineActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(36, 36, 36)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(sid, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
-                            .addGap(6, 6, 6))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(60, 60, 60)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Bedition, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                .addComponent(btitle)
-                                .addComponent(bid)
-                                .addComponent(slname)
-                                .addComponent(sfname)
-                                .addComponent(sform, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(paid))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Bedition, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(btitle)
+                                    .addComponent(bid)
+                                    .addComponent(slname)
+                                    .addComponent(sfname)
+                                    .addComponent(sform, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(np1)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fine, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton3)))
-                .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sid, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)
+                                .addGap(62, 62, 62)))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
                     .addComponent(jtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -621,7 +671,7 @@ this.table = new JTable(this.model);
                     .addComponent(slname, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sform, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bid, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -633,12 +683,20 @@ this.table = new JTable(this.model);
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bedition, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(paid)
+                    .addComponent(np1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(0, 59, Short.MAX_VALUE))
+                    .addComponent(jButton1))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -656,7 +714,27 @@ this.table = new JTable(this.model);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-deltloaned();
+if(h>0){ 
+            try{
+             if ((p==1&&np==1)||p==0&&np==0) {
+            JOptionPane.showMessageDialog(null, "you must select one of the check boxes");
+            p=0;
+            np=0;
+           
+       }
+       else{
+    deltloaned();
+    
+       }
+            }
+             catch (Exception e)
+    {
+      System.err.println(e);
+      JOptionPane.showMessageDialog(null, "error WAS THIS BOOK GIVEN AS CLASS BOOK OR LOANED ");
+    }
+      }else{
+           deltloaned();
+      }
            
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -732,14 +810,24 @@ public void newbook(){
       } catch (Exception ex) {
           Logger.getLogger(returnncourse.class.getName()).log(Level.SEVERE, null, ex);
       }
+      calcdate();
+       h= Double.valueOf(fine.getText());
     }//GEN-LAST:event_tableMouseClicked
+
+    private void fineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fineActionPerformed
 public void deltloaned()
   {
     try
     {
-      String query = "DELETE FROM `loanedcourse` WHERE bid = '" + this.bid.getText() + "' AND sid=" + this.sid.getText();
+      String query = "DELETE FROM `loanedcourse` WHERE bid = '" + this.bid.getText() + "' AND sid='" + this.sid.getText()+"'";
       executeSQlQuery(query, "Deleted");
       update();
+            //update();
+            p=0;
+            np=0;
+            editableGroup.clearSelection();
     }
     catch (Exception e)
     {
@@ -751,7 +839,7 @@ public void deltloaned()
   {
     try
     {
-      String query = "DELETE FROM `loanedcourse` WHERE bid = '" +nwr + "' AND sid=" + this.sid.getText();
+      String query = "DELETE FROM `loanedcourse` WHERE bid = '" +nwr + "' AND sid='" + this.sid.getText()+"'";
       executeSQlQuery1(query, "Deleted");
       newbook();
     }
@@ -764,17 +852,32 @@ public void deltloaned()
   
   public void fine()
   {
+
+      if (h>0){
+            if(p==1&&np==0){
+            st="paid"; 
+           }
+        else if(p==0&&np==1){
+              st="not paid"; 
+        }
     try
     {
        methods m=new methods();
         Connection con = m.getConnection();
+      String sql = "INSERT INTO `libfines`(`id`, `amount`,  `day`,`status`) VALUES ('" + this.sid.getText() + "','" + h + "',now(),'" +st+ "')";
+      
+      PreparedStatement pst = con.prepareStatement(sql);
+      pst.executeUpdate(sql);
+      pst.close();
       
       con.close();
     }
     catch (Exception e)
     {
+         JOptionPane.showMessageDialog(null, "FINE NOT INSERTED");
       System.err.println(e);
     }
+      }
   }
   
   public void clear()
@@ -788,6 +891,8 @@ public void deltloaned()
     this.Bedition.setText("");
      this.iconl.setText("");
     this.iconl.setIcon(null);
+    fine.setText("");
+    day.setText("");
     this.iconl.setText("image");
   }
   
@@ -798,7 +903,7 @@ public void deltloaned()
     try
     {
       Statement st3 = con.createStatement();
-      ResultSet res9 = st3.executeQuery("SELECT updated_at FROM loaned  WHERE bid='" + this.bid.getText() + " '");
+      ResultSet res9 = st3.executeQuery("SELECT updated_at FROM loanedcourse  WHERE bid='" + this.bid.getText() + " '");
       if (res9.next())
       {
         String r = res9.getString("updated_at");
@@ -818,11 +923,18 @@ public void deltloaned()
           long diffMinutes = diff / 60000L % 60L;
           long diffHours = diff / 3600000L % 24L;
           long diffDays = diff / 86400000L;
-          if (diffDays >= 10L)
+          this.day.setText(diffDays + "days");
+          if (diffDays < 10L)
+          {
+            this.fine.setText("0");
+          }
+          else
           {
             int sd = (int)(diffDays - this.days);
+           // JOptionPane.showMessageDialog(null, perday+"   "+days+" "+sd);
             int u = sd * this.perday;
-            v = Integer.toString(u);
+            String v = Integer.toString(u);
+            this.fine.setText(v);
           }
         }
         catch (Exception ex)
@@ -837,7 +949,7 @@ public void deltloaned()
     }
     catch (SQLException ex)
     {
-      Logger.getLogger(returnn.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(returnncourse.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
   
@@ -853,6 +965,7 @@ public void deltloaned()
     {
       System.err.println(e);
     }
+    fine();
     clear();
   }
     /**
@@ -894,6 +1007,8 @@ public void deltloaned()
     private javax.swing.JTextField Bedition;
     private javax.swing.JTextField bid;
     private javax.swing.JTextField btitle;
+    private javax.swing.JTextField day;
+    private javax.swing.JTextField fine;
     private javax.swing.JLabel iconl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -907,6 +1022,8 @@ public void deltloaned()
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jtFilter;
+    private javax.swing.JRadioButton np1;
+    private javax.swing.JRadioButton paid;
     private javax.swing.JTextField sfname;
     private javax.swing.JTextField sform;
     private javax.swing.JTextField sid;

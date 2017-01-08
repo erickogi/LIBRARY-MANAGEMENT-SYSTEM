@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,6 +53,10 @@ int ptcb=0;
           try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -189,8 +194,6 @@ public void selectname()
         course3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
         jLabel1.setText("PRINT PER CLASS");
 
@@ -642,7 +645,7 @@ public void selectname()
 		JasperReportBuilder report = DynamicReports.report();//a new report
 		report
 		  .columns(
-		  	Columns.column("ADM ", "sid", DataTypes.integerType())
+		  	Columns.column("ADM ", "sid", DataTypes.stringType())
 		  		.setHorizontalAlignment(HorizontalAlignment.LEFT),
                           Columns.column("NAME", "fname", DataTypes.stringType()),
 		  	Columns.column(" TITLE", "title", DataTypes.stringType()),

@@ -5,11 +5,14 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +26,16 @@ public class changepass extends javax.swing.JFrame {
      */
     public changepass() {
         initComponents();
+        methods n=new methods();
+    String col;
+        try {
+            col = n.selectcolor();
+            Color c=new Color(Integer.parseInt(col));
+             jPanel1.setBackground(c);
+        } catch (Exception ex) {
+            Logger.getLogger(changepass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
 this.newusername.addActionListener(new ActionListener()
     {
       public void actionPerformed(ActionEvent e)
@@ -116,8 +129,6 @@ this.newusername.addActionListener(new ActionListener()
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         jLabel1.setText("change admin password");
 

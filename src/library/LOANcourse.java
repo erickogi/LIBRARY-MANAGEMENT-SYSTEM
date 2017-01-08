@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -85,6 +86,10 @@ DefaultTableModel model = new DefaultTableModel();
     try
     {
       selectname();
+      methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -126,7 +131,7 @@ DefaultTableModel model = new DefaultTableModel();
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next())
       {
         this.filePath = res7.getString("imgurl");
@@ -196,20 +201,16 @@ DefaultTableModel model = new DefaultTableModel();
    methods m=new methods();
         Connection con = m.getConnection();
     Statement st2 = con.createStatement();
-    Statement st1 = con.createStatement();
-    Statement st0 = con.createStatement();
-    Statement st3 = con.createStatement();
-    ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
-    ResultSet res8 = st0.executeQuery("SELECT lastname FROM students  WHERE id=" + this.sid.getText() + " ");
-    ResultSet res9 = st1.executeQuery("SELECT form FROM students  WHERE id=" + this.sid.getText() + " ");
-     ResultSet res3 = st3.executeQuery("SELECT class FROM students  WHERE id=" + this.sid.getText() + " ");
-    if ((res7.next()) && (res8.next()) && (res9.next())&& (res3.next()))
+
+    ResultSet res7 = st2.executeQuery("SELECT * FROM students  WHERE id='" + this.sid.getText() + "'");
+   
+    if (res7.next())
     {
       this.sfname.setText(res7.getString("fname"));
-      this.slname.setText(res8.getString("lastname"));
-      this.sform.setText(res9.getString("form"));
-       this.sformc.setText(res3.getString("class"));
-      this.y = res9.getString("form");
+      this.slname.setText(res7.getString("lastname"));
+      this.sform.setText(res7.getString("form"));
+       this.sformc.setText(res7.getString("class"));
+      this.y = res7.getString("form");
     }
     else
     {
@@ -221,13 +222,10 @@ DefaultTableModel model = new DefaultTableModel();
       this.slname.setText("");
     }
     st2.close();
-    st0.close();
-     st3.close();
-    st1.close();
+   
+  
     res7.close();
-    res8.close();
-    res9.close();
-    res3.close();
+   
     con.close();
   }
   
@@ -347,8 +345,6 @@ DefaultTableModel model = new DefaultTableModel();
         sformc = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -590,7 +586,7 @@ DefaultTableModel model = new DefaultTableModel();
     String w = this.bid.getText();
     String x = this.btitle.getText();
     if ((bi.equals("")) || (hi.equals("")) || (si.equals("")) || (w.equals("")) || (x.equals(""))) {
-      JOptionPane.showMessageDialog(null, "enter students details");
+      JOptionPane.showMessageDialog(null, "enter all details");
     } else {
       try
       {
@@ -645,7 +641,7 @@ DefaultTableModel model = new DefaultTableModel();
       String d = this.slname.getText();
       String c = this.bid.getText();
       String a = this.btitle.getText();
-      String h = this.bstatus.getText().toString();
+      String h = this.bstatus.getText();
       String n = "not availabe";
       try
       {
@@ -694,6 +690,10 @@ DefaultTableModel model = new DefaultTableModel();
         pst.executeUpdate(sql);
         pst.close();
         connection.close();
+         this.bid.setText("");
+          this.Bedition.setText("");
+          this.bstatus.setText("");
+          this.btitle.setText("");
         findUsers();
       }
       catch (Exception e)

@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -46,6 +47,10 @@ DefaultTableModel model = new DefaultTableModel();
     try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -114,7 +119,7 @@ DefaultTableModel model = new DefaultTableModel();
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getInt("sid"), rs.getString("title"), rs.getString("updated_at"));
+        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getString("sid"), rs.getString("title"), rs.getString("updated_at"));
         
         usersList.add(user);
       }
@@ -138,7 +143,7 @@ DefaultTableModel model = new DefaultTableModel();
     Object[] row = new Object[5];
     for (int i = 0; i < users.size(); i++)
     {
-      row[0] = Integer.valueOf(((returndb)users.get(i)).getSid());
+      row[0] =((returndb)users.get(i)).getSid();
       row[1] = ((returndb)users.get(i)).getBid();
       row[2] = ((returndb)users.get(i)).getTitle();
       row[3] = ((returndb)users.get(i)).getEdition();
@@ -161,7 +166,7 @@ DefaultTableModel model = new DefaultTableModel();
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getInt("sid"), rs.getString("title"), rs.getString("updated_at"));
+        returndb user = new returndb(rs.getString("bid"), rs.getString("edition"), rs.getString("fname"), rs.getString("lname"), rs.getInt("no"), rs.getString("sid"), rs.getString("title"), rs.getString("updated_at"));
         
         usersList.add(user);
       }
@@ -217,8 +222,6 @@ DefaultTableModel model = new DefaultTableModel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         table2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -346,7 +349,7 @@ public void checkdone(){
         Connection con = m.getConnection();
         Statement st2 = con.createStatement();
         
-        ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
+        ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id='" + this.sid.getText() + "'");
         if (res7.next())
         {
           showimg();
@@ -449,8 +452,8 @@ JOptionPane.showMessageDialog(null, "" + this.studentname + "'   has     " + thi
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
-      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loaned  WHERE sid=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id='" + this.sid.getText() + "'");
+      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loaned  WHERE sid='" + this.sid.getText() + "'");
       if ((res7.next()) && (res8.next()))
       {
         this.loanedbooks = res8.getInt(1);
@@ -487,8 +490,8 @@ JOptionPane.showMessageDialog(null, "" + this.studentname + "'   has     " + thi
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
-      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loanedcourse  WHERE sid=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id='" + this.sid.getText() + "'");
+      ResultSet res8 = st0.executeQuery("SELECT SUM(no) FROM loanedcourse  WHERE sid='" + this.sid.getText() + "'");
       if ((res7.next()) && (res8.next()))
       {
         this.loanedcourse = res8.getInt(1);
@@ -523,7 +526,7 @@ JOptionPane.showMessageDialog(null, "" + this.studentname + "'   has     " + thi
       Statement st2 = con.createStatement();
       Statement st0 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT fname FROM students  WHERE id='" + this.sid.getText() + "'");
       ResultSet res8 = st0.executeQuery("SELECT SUM(amount) FROM libfines  WHERE id='" + this.sid.getText() +"'AND status='"+np+"'");
       if ((res7.next()) && (res8.next()))
       {
@@ -582,7 +585,7 @@ JOptionPane.showMessageDialog(null, "" + this.studentname + "'   has     " + thi
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next())
       {
         this.filePath = res7.getString("imgurl");

@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -85,6 +86,10 @@ public class students extends javax.swing.JFrame {
     try
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -177,7 +182,7 @@ sfname.requestFocus();
       ResultSet rs = st.executeQuery(searchQuery);
       while (rs.next())
       {
-        addstudent user = new addstudent(rs.getInt("id"), rs.getString("fname"), rs.getString("lastname"), rs.getString("form"),rs.getString("class"));
+        addstudent user = new addstudent(rs.getString("id"), rs.getString("fname"), rs.getString("lastname"), rs.getString("form"),rs.getString("class"));
         
         usersList.add(user);
       }
@@ -201,7 +206,7 @@ sfname.requestFocus();
     Object[] row = new Object[5];
     for (int i = 0; i < users.size(); i++)
     {
-      row[0] = Integer.valueOf(((addstudent)users.get(i)).getId());
+      row[0] = ((addstudent)users.get(i)).getId();
       row[1] = ((addstudent)users.get(i)).getFname();
       row[2] = ((addstudent)users.get(i)).getLname();
       
@@ -313,8 +318,6 @@ sfname.requestFocus();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -543,7 +546,7 @@ sfname.requestFocus();
     }
     else
     {
-      String query = "UPDATE `students` SET `fname`='" + this.sfname.getText() + "',`lastname`='" + this.slname.getText() + "',`form`='" + this.sform.getText() + "',`class`='" + this.sclass.getText() + "',`imgurl`='" + this.fileurlp + "' WHERE `id` = " + this.sid.getText();
+      String query = "UPDATE `students` SET `fname`='" + this.sfname.getText() + "',`lastname`='" + this.slname.getText() + "',`form`='" + this.sform.getText() + "',`class`='" + this.sclass.getText() + "',`imgurl`='" + this.fileurlp + "' WHERE `id` = '" + this.sid.getText()+"'";
       
       executeSQlQuery(query, "Updated");
       updateloanstudentdetails();
@@ -566,7 +569,7 @@ public  void insert(){
     } else {
       try
       {
-        int stru = Integer.valueOf(this.sid.getText()).intValue();
+        String stru =(this.sid.getText());
         
        methods m=new methods();
         Connection con = m.getConnection();
@@ -576,7 +579,7 @@ public  void insert(){
         
         PreparedStatement pst = con.prepareStatement(str);
         
-        pst.setInt(1, stru);
+        pst.setString(1, stru);
         
         ResultSet rs = pst.executeQuery();
         if (rs.next())
@@ -677,7 +680,7 @@ public  void insert(){
         Connection con = m.getConnection();
       Statement st2 = con.createStatement();
       
-      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id=" + this.sid.getText() + "");
+      ResultSet res7 = st2.executeQuery("SELECT imgurl FROM students  WHERE id='" + this.sid.getText() + "'");
       if (res7.next()) {
         this.filePath = res7.getString("imgurl");
       } else {
@@ -739,7 +742,7 @@ public  void insert(){
       ResultSet rs = pst.executeQuery();
       while (rs.next())
       {
-        String query = "UPDATE `loaned` SET `fname`='" + this.sfname.getText() + "',`lname`='" + this.slname.getText() + "',`form`='" + this.sform.getText() + "',`class`='" + this.sclass.getText() + "' WHERE `sid` = " + this.sid.getText();
+        String query = "UPDATE `loaned` SET `fname`='" + this.sfname.getText() + "',`lname`='" + this.slname.getText() + "',`form`='" + this.sform.getText() + "',`class`='" + this.sclass.getText() + "' WHERE `sid` = '" + this.sid.getText()+"'";
         executeSQlQuery1(query, "Updated");
       }
       connection.close();
@@ -771,7 +774,7 @@ public  void insert(){
       ResultSet rs = pst.executeQuery();
       while (rs.next())
       {
-        String query = "UPDATE `loanedcourse` SET `fname`='" + this.sfname.getText() + "',`lname`='" + this.slname.getText() + "',`form`='" + this.sform.getText() + "',`class`='" + this.sclass.getText() + "' WHERE `sid` = " + this.sid.getText();
+        String query = "UPDATE `loanedcourse` SET `fname`='" + this.sfname.getText() + "',`lname`='" + this.slname.getText() + "',`form`='" + this.sform.getText() + "',`class`='" + this.sclass.getText() + "' WHERE `sid` = '" + this.sid.getText()+"'";
         executeSQlQuery1(query, "Updated");
       }
       connection.close();

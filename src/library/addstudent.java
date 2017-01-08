@@ -14,7 +14,7 @@ import javax.swing.table.TableModel;
  */
 public class addstudent {
 
-  private int id;
+  private String id;
   private String fname;
   private String lastname;
   private String form;
@@ -24,7 +24,7 @@ public class addstudent {
     throw new UnsupportedOperationException("Not supported yet.");
   }
   
-  public addstudent(int Id, String Fname, String Lname, String Form, String Sformc)
+  public addstudent(String Id, String Fname, String Lname, String Form, String Sformc)
   {
     this.id = Id;
     this.fname = Fname;
@@ -33,7 +33,7 @@ public class addstudent {
      this.sformc = Sformc;
   }
   
-  public int getId()
+  public String getId()
   {
     return this.id;
   }

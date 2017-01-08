@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,6 +45,10 @@ text();
             
     {
       selectname();
+       methods n=new methods();
+    String col=n.selectcolor();
+    Color c=new Color(Integer.parseInt(col));
+    jPanel1.setBackground(c);
     }
     catch (Exception ex)
     {
@@ -196,8 +201,6 @@ f310.setText("");
         ff2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         jLabel1.setText("FORM TO MOVE");
 
@@ -354,7 +357,7 @@ f310.setText("");
     }//GEN-LAST:event_f17ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(form.getText()==("")){
+        if(form.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Enter the class you wish to move");
         }
         else if((all1==0&&notall1==0)||(all1==1&&notall1==1)){

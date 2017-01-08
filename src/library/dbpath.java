@@ -5,10 +5,9 @@
  */
 package library;
 
-import java.sql.Connection;
-import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import static library.methods.path;
 
 /**
  *
@@ -21,6 +20,13 @@ public class dbpath extends javax.swing.JFrame {
      */
     public dbpath() {
         initComponents();
+         this.dppath.addActionListener(new ActionListener()
+    {
+      public void actionPerformed(ActionEvent b)
+      {
+     t();
+      }
+    });
     }
 
     /**
@@ -100,11 +106,18 @@ public class dbpath extends javax.swing.JFrame {
  //     return path;
  // }
     public void t(){
-     
+     try{
      String tdb=  dppath.getText();
      methods n=new methods();
+     n.updatePath(tdb);
+     //JOptionPane.showMessageDialog(null, "DONE");
+    // System.exit(1);
+     }
+     catch(Exception m){
+         JOptionPane.showMessageDialog(null, "ERROR");
+     }
       //methods.path=dppath.getText();
-      n.r(tdb);
+    //  n.r(tdb);
      // n.setpdb(tdb);
   //  String j=  n.getpdb();
 
