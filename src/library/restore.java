@@ -235,6 +235,7 @@ try{
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/library","root","123ERYcog.");
             con.setAutoCommit(false);
             PreparedStatement pstm = null ;
+             //PreparedStatement pstm1 = null ;
            // this.fileurlp = this.student.replace("\\", "\\\\");
             FileInputStream input = new FileInputStream(""+students+"");
             POIFSFileSystem fs = new POIFSFileSystem( input );
@@ -251,13 +252,17 @@ try{
                 String imgurlK = row.getCell(5).getStringCellValue();
                 
                 String imgurl =imgurlK.replace("\\", "\\\\");
+                //String sql1="DROP TABLE IF EXISTS students";
                 String sql = "INSERT INTO students VALUES('"+sid+"','"+fname+"','"+lastname+"','"+form+"','"+classs+"','"+imgurl+"')";
+              // pstm1=(PreparedStatement) con.prepareStatement(sql1);
                 pstm = (PreparedStatement) con.prepareStatement(sql);
+               //  pstm1.execute();
                 pstm.execute();
                 System.out.println("Import rows "+i);
             }
             con.commit();
             pstm.close();
+            
             con.close();
             input.close();
             JOptionPane.showMessageDialog(null, "Success import excel to mysql table"

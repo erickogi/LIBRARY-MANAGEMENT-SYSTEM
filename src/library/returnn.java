@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -42,6 +43,7 @@ import javax.swing.table.TableRowSorter;
  * @author kimani kogi
  */
 public class returnn extends javax.swing.JFrame {
+     ButtonGroup editableGroup = new ButtonGroup();
  DefaultTableModel model = new DefaultTableModel();
  String st;
   String v;
@@ -139,7 +141,32 @@ this.table = new JTable(this.model);
         }
       }
     });
-  }
+    
+  //ButtonGroup editableGroup = new ButtonGroup();
+    //editableGroup.add(paid);
+   // editableGroup.add(np);
+ // ButtonGroup editableGroup = new ButtonGroup();
+    editableGroup.add(paid);
+    editableGroup.add(np1);
+     paid.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          p=1;
+          np=0;
+
+        }
+    });
+
+    //add disallow listener
+    np1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+np=1;
+p=0;
+        }
+    });
+    }
   
   public void showimg()
     throws Exception
@@ -470,8 +497,8 @@ this.table = new JTable(this.model);
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         sform = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        paid = new javax.swing.JRadioButton();
+        np1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -558,29 +585,14 @@ this.table = new JTable(this.model);
 
         sform.setEditable(false);
 
-        jCheckBox1.setText("paid");
-        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox1ItemStateChanged(evt);
-            }
-        });
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        paid.setText("paid");
+        paid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                paidActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setText("not paid");
-        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox2ItemStateChanged(evt);
-            }
-        });
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
+        np1.setText("not paid");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -616,7 +628,9 @@ this.table = new JTable(this.model);
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(jLabel10)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(d22, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(np1)
+                                                .addComponent(d22, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,18 +638,15 @@ this.table = new JTable(this.model);
                                         .addComponent(jLabel7)
                                         .addComponent(jLabel8))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jCheckBox1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                                            .addComponent(jCheckBox2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                        .addComponent(Bedition, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                        .addComponent(btitle)
-                                        .addComponent(bid)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(51, 51, 51)
-                                            .addComponent(jLabel5)))))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(paid)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Bedition, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                            .addComponent(btitle)
+                                            .addComponent(bid)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(51, 51, 51)
+                                                .addComponent(jLabel5))))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(iconl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -692,11 +703,11 @@ this.table = new JTable(this.model);
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bedition, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
-                .addGap(14, 14, 14)
+                    .addComponent(paid)
+                    .addComponent(np1))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(d11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(d22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -809,56 +820,33 @@ public void newbook(){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      
         if(h>0){ 
-        if ((p==1&&np==1)||p==0&&np==0) {
-            JOptionPane.showMessageDialog(null, "you must select one of the check boxes ");
+            try{
+             if ((p==1&&np==1)||p==0&&np==0) {
+            JOptionPane.showMessageDialog(null, "you must select one of the check boxes");
             p=0;
             np=0;
-            jCheckBox1.setSelected(false);
-            jCheckBox2.setSelected(false);
+           
        }
        else{
     deltloaned();
     
        }
+            }
+             catch (Exception e)
+    {
+      System.err.println(e);
+      JOptionPane.showMessageDialog(null, "error WAS THIS BOOK GIVEN AS CLASS BOOK OR LOANED ");
+    }
       }else{
            deltloaned();
       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-       // p=1;
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-       // np=1;
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
-    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
-        if (np==0){
-            np=1;
-             jCheckBox2.setSelected(true);
-             jCheckBox1.setSelected(false);
-        }
-        else{
-            np=0;
-            jCheckBox2.setSelected(false);
-        }
-            
-    }//GEN-LAST:event_jCheckBox2ItemStateChanged
-
-    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-         if (p==0){
-            p=1;
-            jCheckBox1.setSelected(true);
-            jCheckBox2.setSelected(false);
-        }
-        else{
-             
-            p=0;
-            jCheckBox1.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox1ItemStateChanged
-  public void deltloaned()
+    private void paidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paidActionPerformed
+ 
+    public void deltloaned()
   {
     try
     {
@@ -867,8 +855,8 @@ public void newbook(){
       update();
             p=0;
             np=0;
-            jCheckBox1.setSelected(false);
-            jCheckBox2.setSelected(false);
+            editableGroup.clearSelection();
+            
     }
     catch (Exception e)
     {
@@ -885,8 +873,8 @@ public void newbook(){
       newbook();
              p=0;
             np=0;
-            jCheckBox1.setSelected(false);
-            jCheckBox2.setSelected(false);
+             editableGroup.clearSelection();
+            
     }
     catch (Exception e)
     {
@@ -991,6 +979,7 @@ public void newbook(){
      this.iconl.setText("");
     this.iconl.setIcon(null);
     this.iconl.setText("image");
+     editableGroup.clearSelection();
   }
   public void update()
   {
@@ -998,7 +987,7 @@ public void newbook(){
     {
       String v = "available";
       String query = "UPDATE books SET status = '" + v + "'  WHERE id='" + this.bid.getText() + "'";
-      executeSQlQuery(query, "updated");
+      executeSQlQuery(query, "updated  ");
     }
     catch (Exception e)
     {
@@ -1053,8 +1042,6 @@ public void newbook(){
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -1067,6 +1054,8 @@ public void newbook(){
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jtFilter;
+    private javax.swing.JRadioButton np1;
+    private javax.swing.JRadioButton paid;
     private javax.swing.JTextField sfname;
     private javax.swing.JTextField sform;
     private javax.swing.JTextField sid;

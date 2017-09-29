@@ -6,6 +6,8 @@
 package library;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
@@ -15,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
@@ -29,6 +32,7 @@ import net.sf.dynamicreports.report.exception.DRException;
  * @author kimani kogi
  */
 public class printper extends javax.swing.JFrame {
+     ButtonGroup editableGroup = new ButtonGroup();
     String  Query;
     
     String tt;
@@ -55,6 +59,68 @@ int ptcb=0;
     }
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("academic.png")));
         this.setTitle(tt);
+   
+    editableGroup.add(lib);
+    editableGroup.add(course);
+      editableGroup.add(lib2);
+    editableGroup.add(course2);
+          editableGroup.add(lib3);
+    editableGroup.add(course3);
+    lib.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          pclb=1;
+         pccb=0;
+
+        }
+    });
+
+    //add disallow listener
+   course.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+  pccb=1;
+  pclb=0;
+        }
+    });
+  
+    lib2.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          pflb=1;
+         pfcb=0;
+        }
+    });
+
+   
+   course2.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+  pfcb=1;
+   pflb=0;
+        }
+    });
+     lib3.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        ptlb=1;
+       ptcb=0; 
+
+        }
+    });
+
+   
+   course3.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+ ptcb=1;
+  ptlb=0;
+        }
+    });
+    
     }
 public void selectname()
     throws Exception
@@ -109,14 +175,14 @@ public Connection getConnection()
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        lib = new javax.swing.JRadioButton();
+        course = new javax.swing.JRadioButton();
+        lib2 = new javax.swing.JRadioButton();
+        course2 = new javax.swing.JRadioButton();
+        lib3 = new javax.swing.JRadioButton();
+        course3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -171,81 +237,21 @@ public Connection getConnection()
 
         jLabel7.setText("PRINT ALL COURSEBOOKS GIVEN ");
 
-        jCheckBox1.setText("LIBRARY");
-        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox1ItemStateChanged(evt);
-            }
-        });
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setText("COURSE BOOKS");
-        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox2ItemStateChanged(evt);
-            }
-        });
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox3.setText("LIBRARY");
-        jCheckBox3.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox3ItemStateChanged(evt);
-            }
-        });
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox4.setText("COURSE BOOKS");
-        jCheckBox4.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox4ItemStateChanged(evt);
-            }
-        });
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox5.setText("LIBRARY");
-        jCheckBox5.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox5ItemStateChanged(evt);
-            }
-        });
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox6.setText("COURSE BOOKS");
-        jCheckBox6.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox6ItemStateChanged(evt);
-            }
-        });
-        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox6ActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("BY FORM");
 
         jLabel9.setText("BY TITLE");
+
+        lib.setText("LIBRARY");
+
+        course.setText("COURSEBOOKS");
+
+        lib2.setText("LIBRARY");
+
+        course2.setText("COURSEBOOKS");
+
+        lib3.setText("LIBRARY");
+
+        course3.setText("COURSEBOOKS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -253,12 +259,8 @@ public Connection getConnection()
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pcform, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,15 +276,24 @@ public Connection getConnection()
                                 .addComponent(plfb, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(176, 176, 176)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jButton2)
+                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox3)
+                                .addComponent(lib)
                                 .addGap(18, 18, 18)
-                                .addComponent(jCheckBox4)))))
+                                .addComponent(course)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jButton2)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(lib2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(course2)))))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
@@ -293,12 +304,12 @@ public Connection getConnection()
                                 .addComponent(jLabel6))
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(ptitle)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(ptitle, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jCheckBox5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCheckBox6)))
+                                        .addComponent(lib3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(course3)))
                                 .addGap(54, 54, 54)
                                 .addComponent(jButton4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -327,33 +338,28 @@ public Connection getConnection()
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(ptitle, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(plfb, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pcform, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pcclass, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton4)
-                                .addComponent(jButton5)))
-                        .addGap(0, 0, 0)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4)
+                        .addComponent(jButton5))
+                    .addComponent(pcclass)
+                    .addComponent(plfb)
+                    .addComponent(ptitle, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(pcform))
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6))
+                    .addComponent(lib)
+                    .addComponent(course)
+                    .addComponent(lib2)
+                    .addComponent(course2)
+                    .addComponent(lib3)
+                    .addComponent(course3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(86, 86, 86))
+                .addGap(84, 84, 84))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -372,30 +378,6 @@ public Connection getConnection()
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-       
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-       
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-       
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-      
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
-
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
-    
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
-
-    private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
-       
-    }//GEN-LAST:event_jCheckBox6ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       String fc=  pcform.getText();
       String ff=  pcclass.getText();
@@ -403,6 +385,7 @@ public Connection getConnection()
             JOptionPane.showMessageDialog(null, "ENTER FORM AND CLASS");
                 pclb=0;
                 pccb=0;
+               // editableGroup.clearSelection();
                //jCheckBox1.setSelected(false);
               // jCheckBox2.setSelected(false);
        }
@@ -416,8 +399,7 @@ public Connection getConnection()
                pclb=0;
                pccb=0;
                try{
-              jCheckBox1.setSelected(false);
-              jCheckBox2.setSelected(false);
+             editableGroup.clearSelection();
                }
                catch (Exception e)
                        {
@@ -435,10 +417,10 @@ public Connection getConnection()
       //String ff=  pcflb.getText();
         if(fc.equals("")){
             JOptionPane.showMessageDialog(null, "ENTER FORM ");
-               jCheckBox3.setSelected(false);
-               jCheckBox4.setSelected(false);        
+              // editableGroup.clearSelection();        
                pflb=0;
                pfcb=0;
+               editableGroup.clearSelection();
        }
         else if((  pflb==1&&pfcb==1)||(  pflb==0&&pfcb==0)){
             JOptionPane.showMessageDialog(null, " YOU MUST CHECK ONE OF THE CHECK BOXES/n");
@@ -449,10 +431,10 @@ public Connection getConnection()
 //              b.setVisible(true);
 //              this.setVisible(false);
 //              this.dispose();
-               jCheckBox3.setSelected(false);
-               jCheckBox4.setSelected(false);        
+               // editableGroup.clearSelection();       
                pflb=0;
                pfcb=0;
+               editableGroup.clearSelection();
         }
         else{
            buttonf();
@@ -467,8 +449,7 @@ public Connection getConnection()
             JOptionPane.showMessageDialog(null, "ENTER TITLE ");
             ptlb=0;
              ptcb=0;
-             jCheckBox5.setSelected(false);
-            jCheckBox6.setSelected(false);
+            editableGroup.clearSelection();
        }
         else if((  ptlb==1&&ptcb==1)||(  ptlb==0&&ptcb==0)){
             JOptionPane.showMessageDialog(null, " YOU MUST CHECK ONE OF THE CHECK BOXES/n");
@@ -482,8 +463,7 @@ public Connection getConnection()
                       
              ptlb=0;
              ptcb=0;
-              jCheckBox5.setSelected(false);
-            jCheckBox6.setSelected(false);
+              editableGroup.clearSelection();
         }
         else{
            buttont();
@@ -499,89 +479,6 @@ public Connection getConnection()
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        buttonalc();
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-    // pclb=1;
-     if (pclb==0){
-            pclb=1;
-            
-            jCheckBox1.setSelected(true);
-            jCheckBox2.setSelected(false);
-            
-
-               
-        }
-        else{
-             
-            pclb=0;
-            jCheckBox1.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox1ItemStateChanged
-
-    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
-        if (pccb==0){
-            pccb=1;
-            jCheckBox2.setSelected(true);
-            jCheckBox1.setSelected(false);
-        } 
-        else{
-             
-            pccb=0;
-            jCheckBox2.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox2ItemStateChanged
-
-    private void jCheckBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox3ItemStateChanged
-         if (pflb==0){
-            pflb=1;
-            jCheckBox3.setSelected(true);
-            jCheckBox4.setSelected(false);
-        }
-        else{
-             
-            pflb=0;
-            jCheckBox3.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox3ItemStateChanged
-
-    private void jCheckBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox4ItemStateChanged
-             if (pfcb==0){
-            pfcb=1;
-            jCheckBox4.setSelected(true);
-            jCheckBox3.setSelected(false);
-        } 
-        else{
-             
-            pfcb=0;
-            jCheckBox4.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox4ItemStateChanged
-
-    private void jCheckBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox5ItemStateChanged
-         if (ptlb==0){
-            ptlb=1;
-            jCheckBox5.setSelected(true);
-            jCheckBox6.setSelected(false);
-        }
-        else{
-             
-            ptlb=0;
-            jCheckBox5.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox5ItemStateChanged
-
-    private void jCheckBox6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox6ItemStateChanged
-          if (ptcb==0){
-            ptcb=1;
-            jCheckBox6.setSelected(true);
-            jCheckBox5.setSelected(false);
-        } 
-        else{
-             
-            ptcb=0;
-            jCheckBox6.setSelected(false);
-        }
-    }//GEN-LAST:event_jCheckBox6ItemStateChanged
   public void buttonalc(){
        
              p="loanedcourse";
@@ -608,8 +505,8 @@ public Connection getConnection()
         JOptionPane.showMessageDialog(null, "ENTER CORRECT FIELDS");
             pclb=0;
              pccb=0;
-             jCheckBox1.setSelected(false);
-            jCheckBox2.setSelected(false);
+              editableGroup.clearSelection();
+             
     }
         else{
                 if(pclb==1){
@@ -628,8 +525,7 @@ public Connection getConnection()
           printclass();
             pclb=0;
              pccb=0;
-             jCheckBox1.setSelected(false);
-            jCheckBox2.setSelected(false);
+              editableGroup.clearSelection();
                 }
     }
     public void buttonf(){
@@ -637,8 +533,7 @@ public Connection getConnection()
         JOptionPane.showMessageDialog(null, "ENTER CORRECT FIELDS");
              pflb=0;
              pfcb=0;
-             jCheckBox3.setSelected(false);
-            jCheckBox4.setSelected(false);
+            editableGroup.clearSelection();
     }
          else{
               if(pflb==1){
@@ -660,8 +555,7 @@ public Connection getConnection()
           printclass();
             pflb=0;
              pfcb=0;
-             jCheckBox3.setSelected(false);
-            jCheckBox4.setSelected(false);
+              editableGroup.clearSelection();
          }
     }
      public void buttont(){
@@ -669,8 +563,7 @@ public Connection getConnection()
         JOptionPane.showMessageDialog(null, "ENTER CORRECT FIELDS");
              ptlb=0;
              ptcb=0;
-             jCheckBox6.setSelected(false);
-            jCheckBox5.setSelected(false);
+            editableGroup.clearSelection();
     }
    else{
         if(ptlb==1){
@@ -693,8 +586,7 @@ public Connection getConnection()
           printclass();
            ptlb=0;
              ptcb=0;
-             jCheckBox6.setSelected(false);
-            jCheckBox5.setSelected(false);
+             editableGroup.clearSelection();
    }
     }
     
@@ -812,17 +704,14 @@ public Connection getConnection()
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton course;
+    private javax.swing.JRadioButton course2;
+    private javax.swing.JRadioButton course3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -833,6 +722,9 @@ public Connection getConnection()
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton lib;
+    private javax.swing.JRadioButton lib2;
+    private javax.swing.JRadioButton lib3;
     private javax.swing.JTextField pcclass;
     private javax.swing.JTextField pcform;
     private javax.swing.JTextField plfb;
